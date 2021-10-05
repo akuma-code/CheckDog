@@ -25,7 +25,16 @@
 }
 
 .form_cont legend {
+    font-size: 1.15rem;
     color: #e2e2e2;
+    border: 1px solid chocolate;
+    background-color: transparent;
+}
+
+[data-form-inp]~legend {
+    color: #e2e2e2;
+    border: 1px solid chocolate;
+    background-color: transparent;
 }
 
 .form_inp {
