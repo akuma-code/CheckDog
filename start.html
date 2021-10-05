@@ -3,7 +3,7 @@
 
 <head>
     <meta charset='UTF-8'>
-    <script src='src/loader.js '></script>
+    <script src='src/scriptsLoader.js'></script>
     <link rel='stylesheet' href='src/styleLoader.css'>
     <title>Dogs Checking</title>
 </head>
@@ -13,26 +13,26 @@
         <div class="form_cont">
             <fieldset>
                 <legend name='inputs'>ДОБАВИТЬ ДОГОВОР:</legend>
-                <form name="inputs" class="form_inp">
+                <form name="inputs" class="form_inp" id="formInputs">
 
                     <fieldset>
-                        <input type="text" name="id" data-form-inp="id">
-                        <legend>ID</legend>
+                        <input type="text" name="id" data-form-inp="id" placeholder="id" value="21/10/05">
+                        <legend>Номер договора</legend>
                     </fieldset>
                     <fieldset>
-                        <legend>Client</legend>
-                        <input type="text" name="client" data-form-inp="client">
+                        <legend>ФИО Заказчика</legend>
+                        <input type="text" name="client" data-form-inp="client" placeholder="client">
                     </fieldset>
                     <fieldset>
-                        <legend>Price</legend>
-                        <input type="text" name="summ" data-form-inp="summ">
+                        <legend>Стоимость договора</legend>
+                        <input type="text" name="summ" data-form-inp="summ" placeholder="summ">
                     </fieldset>
                     <fieldset>
-                        <legend>Date</legend>
-                        <input type="date" name="date" data-form-inp="date">
+                        <legend>Дата готовности</legend>
+                        <input type="date" name="date" data-form-inp="date" placeholder="date">
                     </fieldset>
 
-                    <input type="submit" name="inputs" data-form-inp="add" value="ADD">
+                    <input type="submit" name="inputs" data-form-inp="add" value="ADD" id="subbtn">
                 </form>
             </fieldset>
         </div>

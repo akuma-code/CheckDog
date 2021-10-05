@@ -9,14 +9,19 @@
     flex-wrap: nowrap;
 }
 
+.form_cont fieldset {
+    border-color: chocolate;
+}
+
 .form_cont {
     display: flex;
-    background-color: #628177;
+    background-color: rgb(54, 54, 54);
     width: 930px;
-    height: 105px;
+    height: 100px;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    border: 2px solid #000;
 }
 
 .form_cont legend {
