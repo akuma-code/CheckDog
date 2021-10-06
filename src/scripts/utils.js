@@ -81,3 +81,60 @@ const template_out = `
 </fieldset>
 </div>
 </div>`;
+
+
+function makeElem(type, options = {}) {
+    const elem = document.createElement('div');
+
+    if (type === 'data') {
+        const {
+            name,
+            id,
+            date,
+            summ
+        } = options;
+        const form = `
+<fieldset>
+<legend>${name}</legend>
+<span>${id}</span>
+<span>${date}</span>
+<span>${summ} руб.</span>
+</fieldset>
+`
+        elem.classList.add('block_data');
+        elem.insertAdjacentHTML('afterbegin', form)
+    }
+    if (type === 'contol') {
+        const controlHTML = `<fieldset>
+                        <form name='control'>
+                            <label for="prov">проверка</label>
+                            <input type='checkbox' name="prov"></input>
+
+                            <label for="correct">корректировка</label>
+                            <input type='checkbox' name="correct"></input>
+
+                            <label for="disp">диспетчерская</label>
+                            <input type='checkbox' name="disp"></input>
+
+                            <input type="button" value="DONE!" disabled>
+                        </form>
+                        <legend '>Контроль</legend>
+                    </fieldset>`
+        elem.classList.add('block_check');
+        elem.insertAdjacentHTML('afterbegin', controlHTML)
+    }
+
+    return elem
+}
+
+function ctrl_del(event) {
+    const target = event.target;
+    const elem = event.currentTarget;
+    let current = elem.value;
+    if (event.ctrlKey && elem.id === 'addbtn') {
+        elem.value = 'Удалить псов!';
+        ls.clearDogs()
+    }
+    elem.value = current
+
+}

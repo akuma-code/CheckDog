@@ -52,7 +52,7 @@ class DogBlock {
 
 class CheckBlock {
     constructor() {
-        this.makeBlock();
+        this.test();
     }
     makeBlock() {
         const fieldset = `
@@ -73,6 +73,10 @@ class CheckBlock {
         elem.classList.add('block_check');
         elem.insertAdjacentHTML('afterbegin', fieldset)
         return elem
+    }
+
+    test() {
+        makeElem('control')
     }
 }
 
