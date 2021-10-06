@@ -2,72 +2,49 @@
 <html>
 
 <head>
-    <meta charset='UTF-8'>
-    <script src='src/scriptsLoader.js'></script>
-    <link rel='stylesheet' href='src/styleLoader.css'>
-    <title>Dogs Checking</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="src/styleLoader.css">
+    <title>Ведение договоров</title>
 </head>
 
 <body>
+
+
     <div class="app_cont">
+        <!-- !inputs -->
         <div class="form_cont">
             <fieldset>
-                <legend name='inputs'>ДОБАВЛЕНИЕ НОВОГО ДОГОВОРА</legend>
-                <form name="inputs" class="form_inp" id="formInputs">
+                <form name="inputs" class="form_inp" id="Dogs_form">
 
                     <fieldset>
-                        <input type="text" name="id" data-form-inp="id" placeholder="id" value="21/10/05">
-                        <legend>Номер договора</legend>
-                    </fieldset>
-                    <fieldset>
-                        <input type="text" name="client" data-form-inp="client" placeholder="client">
+                        <input type="text" name="name" data-form-inp="name" placeholder="client">
                         <legend>ФИО Заказчика</legend>
                     </fieldset>
                     <fieldset>
+                        <input type="text" name="id" data-form-inp="id" placeholder="id" value="">
+                        <legend>Номер договора</legend>
+                    </fieldset>
+                    <fieldset>
                         <input type="text" name="summ" data-form-inp="summ" placeholder="summ">
-                        <legend>Стоимость договора</legend>
+                        <legend>Цена, руб.</legend>
                     </fieldset>
                     <fieldset>
                         <input type="date" name="date" data-form-inp="date" placeholder="date">
                         <legend>Дата готовности</legend>
                     </fieldset>
 
-                    <input type="submit" name="inputs" data-form-inp="add" value="ADD" id="subbtn">
+                    <input type="button" name="inputs" value="ADD" id="addbtn">
                 </form>
+                <legend name="inputs">ДОБАВЛЕНИЕ НОВОГО ДОГОВОРА</legend>
             </fieldset>
         </div>
-        <div class="output" data-id="output">
-            <div class="out_block">
-                <div class="block_data">
-                    <fieldset>
-                        <legend>Губин Иван Вячеславович</legend>
-                        <!-- <span>Губин И.В.</span> -->
-                        <span>21/10/04/02-21П</span>
-                        <span>8 октября 2021</span>
-                        <span>2645 руб</span>
-                    </fieldset>
-                </div>
-                <div class="block_check">
-                    <fieldset>
-                        <legend>Контроль</legend>
-                        <form name="control">
-                            <label for="prov">проверка</label>
-                            <input type='checkbox' name="prov"></input>
-
-                            <label for="correct">корректировка</label>
-                            <input type='checkbox' name="correct"></input>
-
-                            <label for="disp">диспетчерская</label>
-                            <input type='checkbox' name="disp"></input>
-
-                            <input type="button" value="DONE!" disabled>
-                        </form>
-                    </fieldset>
-                </div>
-
-            </div>
+        <!-- !output -->
+        <div class="output" data-id="output" id="out">
         </div>
     </div>
+
 </body>
+
+<script src="src/scriptsLoader.js"></script>
 
 </html>

@@ -11,6 +11,7 @@
 
 .form_cont fieldset {
     border-color: chocolate;
+    width: fit-content;
 }
 
 .form_cont {
@@ -51,23 +52,28 @@
 .output {
     display: flex;
     width: 926px;
-    height: fit-content;
+    height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
     border: 2px solid #000;
-    background-color: #c2c2c2;
+    background-color: transparent;
     margin-top: 10px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .out_block {
     display: flex;
-    width: 100%;
+    width: 98%;
     height: 65px;
     background: rgb(54, 54, 54);
-    justify-content: space-evenly;
-    align-content: center;
-    align-items: center;
     color: beige;
     flex-direction: row;
-    flex-wrap: nowrap;
+    margin: 2px;
+    justify-content: space-between;
 }
 
 .block_data {
@@ -88,10 +94,15 @@
     font-size: 20px;
     /* outline: 1px solid beige; */
     padding: 4px;
-    border-left: 1px solid rgb(255, 255, 255);
-    border-right: 1px solid rgb(255, 255, 255);
+    /* border-left: 1px solid rgb(255, 255, 255); */
+    /* border-right: 1px solid rgb(255, 255, 255); */
 }
 
 .block_check>input[type='button'] {
     margin-left: 20px;
+}
+
+input[name=summ] {
+    width: 80px;
+    font-weight: 800;
 }

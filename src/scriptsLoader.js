@@ -4,25 +4,37 @@ const scripts = [{
 }, {
     id: 'utils',
     src: '/src/scripts/utils.js'
-}];
+}, {
+    id: 'controller',
+    src: '/src/scripts/control.js'
+}, ];
 
 console.log('Loader is ready!');
 
 
-class Ascript {
+class ScriptAppend {
     constructor(src = null) {
-        document.head.append(this.elem(src))
+        this.src = src;
+        this.init
     }
 
-    elem(src) {
+    script() {
         const script = document.createElement('script');
-        script.src = src;
+        script.src = this.src;
         return script
+    }
+    get init() {
+        if (!this.src) return
+        document.head.append(this.script(this.src))
     }
 }
 
 
-const loader = scripts.forEach(item => {
-    new Ascript(item.src);
-    console.log(`${item.id} added`);
-})
+function loader() {
+    scripts.forEach(item => {
+        new ScriptAppend(item.src);
+        console.log(`${item.id} added`);
+    })
+}
+
+loader()
