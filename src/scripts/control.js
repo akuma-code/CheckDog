@@ -1,12 +1,14 @@
 //@ts-check
 const addbtn = document.querySelector('#addbtn');
-
-addbtn.addEventListener('click', (event) => {
+//@ts-ignore
+addbtn.addEventListener('click', (event = {}) => {
     const target = event.target;
     const data = getVals();
     const block = new OutBlock(data);
     ls.add2LS()
-        // ctrl_del(event)
+        // @ts-ignore
+    if (event.which() && event.which === 3) {}
+    // ctrl_del(event)
     return block.toHTML
 })
 
