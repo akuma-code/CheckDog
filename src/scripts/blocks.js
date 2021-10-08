@@ -40,8 +40,9 @@ class DogBlock {
         <legend>${name}</legend>
         <span>${id}</span>
         <span>${date}</span>
+        < /fieldset>
         <span>${summ} руб.</span>
-        </fieldset>`;
+        `;
 
         const elem = document.createElement('div');
         elem.classList.add('block_data');
@@ -66,7 +67,7 @@ class CheckBlock {
         <input type = 'checkbox' name = "disp" ></input>
         < input type = "button" value = "DONE!" disabled >
         </form> 
-        <legend '>Контроль</legend> 
+        <legend>Контроль</legend> 
         </fieldset>`;
 
         const elem = document.createElement('div');
@@ -77,11 +78,5 @@ class CheckBlock {
 
     test() {
         makeElem('control')
-    }
-}
-
-class BlockConstructor {
-    constructor(dataBlock = new DogBlock(), checkBlock = new CheckBlock()) {
-
     }
 }

@@ -8,13 +8,13 @@ function b_data(uInputs = {}) {
     } = uInputs;
 
     const fieldset = `
-<fieldset>
+<fieldset date-form-name='data'>
 <legend>${name}</legend>
 <span>${id}</span>
-<span>${date}</span>
 <span>${summ} руб.</span>
-</fieldset>
-`
+</fieldset > 
+<span>${date}</span>
+`;
 
     const elem = document.createElement('div');
     elem.classList.add('block_data');
@@ -24,7 +24,7 @@ function b_data(uInputs = {}) {
 
 function b_check() {
     const fieldset = `<fieldset>
-                        <form name='control'>
+                        <form date-form-name='control'>
                             <label for="prov">проверка</label>
                             <input type='checkbox' name="prov"></input>
 
@@ -49,7 +49,11 @@ function getVals() {
     const elems = Array.from(document.querySelectorAll('[data-form-inp]'));
     elems.map(elem => {
         let inp = elem.dataset.formInp;
-        values[inp] = elem.value
+        if (inp === 'date') {
+            //! доделать вывод даты готовности
+            let date = elem.value;
+            values[inp] = date
+        } else values[inp] = elem.value
     });
     return values
 

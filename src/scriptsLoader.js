@@ -1,13 +1,19 @@
 const scripts = [{
-    id: 'blocks',
-    src: '/src/scripts/blocks.js'
-}, {
-    id: 'utils',
-    src: '/src/scripts/utils.js'
-}, {
-    id: 'controller',
-    src: '/src/scripts/control.js'
-}, ];
+        id: 'blocks',
+        src: './src/scripts/blocks.js'
+    }, {
+        id: 'utils',
+        src: './src/scripts/utils.js'
+    },
+    {
+        id: 'model',
+        src: './src/scripts/model.js'
+    },
+    {
+        id: 'controller',
+        src: './src/scripts/control.js'
+    },
+];
 
 console.log('Loader is ready!');
 

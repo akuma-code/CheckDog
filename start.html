@@ -32,7 +32,14 @@
                         <input type="date" name="date" data-form-inp="date" placeholder="date">
                         <legend>Дата готовности</legend>
                     </fieldset>
-
+                    <fieldset class="form_type">
+                        <legend>Тип</legend>
+                        <form name="type">
+                            <input type="radio" name="type" data-form-type="P" value="П">21П
+                            <input type="radio" name="type" data-form-type="R" value="Р">21Р
+                            <input type="radio" name="type" data-form-type="T" value="T">21Т
+                        </form>
+                    </fieldset>
                     <input type="button" name="inputs" value="Добавить" id="addbtn">
                 </form>
                 <legend name="inputs">ДОБАВЛЕНИЕ НОВОГО ДОГОВОРА</legend>

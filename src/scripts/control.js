@@ -7,8 +7,8 @@ addbtn.addEventListener('click', (event = {}) => {
     const block = new OutBlock(data);
     ls.add2LS()
         // @ts-ignore
-    if (event.which() && event.which === 3) {}
-    // ctrl_del(event)
+        // if (event.which() && event.which === 3) {}
+        // ctrl_del(event)
     return block.toHTML
 })
 
@@ -28,9 +28,9 @@ class LS {
         this.loadDogs();
     }
     add2LS() {
-        const all = getDogsFromLocalStorage();
-        all.push(getVals());
-        localStorage.setItem('dogs', JSON.stringify(all))
+        const saved = getDogsFromLocalStorage();
+        saved.push(getVals());
+        localStorage.setItem('dogs', JSON.stringify(saved));
         localStorage.setItem('form', JSON.stringify(getVals()));
     }
 
