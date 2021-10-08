@@ -1,16 +1,17 @@
 //@ts-check
-const addbtn = document.querySelector('#addbtn');
+const addbtn = document.querySelector('#addbtn'),
+    elTypeForm = document.querySelector('fieldset.form_type');
 //@ts-ignore
 addbtn.addEventListener('click', (event = {}) => {
     const target = event.target;
     const data = getVals();
     const block = new OutBlock(data);
     ls.add2LS()
-        // @ts-ignore
-        // if (event.which() && event.which === 3) {}
-        // ctrl_del(event)
+
     return block.toHTML
-})
+});
+
+
 
 window.addEventListener('load', () => ls.init())
 

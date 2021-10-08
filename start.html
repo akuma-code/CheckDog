@@ -24,6 +24,12 @@
                         <input type="text" name="id" data-form-inp="id" placeholder="id" value="">
                         <legend>Номер договора</legend>
                     </fieldset>
+                    <fieldset class="form_type">
+                        <legend>Тип</legend>
+                        <input type="radio" name="type" data-form-inp="type" checked><span>21П</span>
+                        <input type="radio" name="type" data-form-inp="type"><span>21Р</span>
+                        <input type="radio" name="type" data-form-inp="type"><span>21Т</span>
+                    </fieldset>
                     <fieldset>
                         <input type="text" name="summ" data-form-inp="summ" placeholder="summ">
                         <legend>Цена, руб.</legend>
@@ -32,14 +38,8 @@
                         <input type="date" name="date" data-form-inp="date" placeholder="date">
                         <legend>Дата готовности</legend>
                     </fieldset>
-                    <fieldset class="form_type">
-                        <legend>Тип</legend>
-                        <form name="type">
-                            <input type="radio" name="type" data-form-type="P" value="П">21П
-                            <input type="radio" name="type" data-form-type="R" value="Р">21Р
-                            <input type="radio" name="type" data-form-type="T" value="T">21Т
-                        </form>
-                    </fieldset>
+
+
                     <input type="button" name="inputs" value="Добавить" id="addbtn">
                 </form>
                 <legend name="inputs">ДОБАВЛЕНИЕ НОВОГО ДОГОВОРА</legend>

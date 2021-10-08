@@ -8,9 +8,9 @@ function b_data(uInputs = {}) {
     } = uInputs;
 
     const fieldset = `
-<fieldset date-form-name='data'>
+    <fieldset date-form-name='data'>
 <legend>${name}</legend>
-<span>${id}</span>
+<span >${id}</span>
 <span>${summ} руб.</span>
 </fieldset > 
 <span>${date}</span>
@@ -44,15 +44,29 @@ function b_check() {
     return block
 }
 
+function getType() {
+    const $form = document.querySelector('#Dogs_form');
+    const radio = Array.from($form.elements.type);
+    let result = '';
+    radio.forEach(input => {
+        if (input.checked) result = input.nextSibling.textContent
+    });
+    return result
+
+
+}
+
 function getVals() {
     const values = {};
     const elems = Array.from(document.querySelectorAll('[data-form-inp]'));
+    const type = getType();
+
+
     elems.map(elem => {
         let inp = elem.dataset.formInp;
-        if (inp === 'date') {
+        if (inp === 'id') {
             //! доделать вывод даты готовности
-            let date = elem.value;
-            values[inp] = date
+            values[inp] = `${elem.value}-${type}`
         } else values[inp] = elem.value
     });
     return values
