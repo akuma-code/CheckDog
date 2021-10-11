@@ -8,7 +8,7 @@ function b_data(uInputs = {}) {
     } = uInputs;
 
     const fieldset = `
-    <fieldset date-form-name='data'>
+    <fieldset data-form-name='data'>
 <legend>${name}</legend>
 <span >${id}</span>
 <span>${summ} руб.</span>
@@ -24,7 +24,7 @@ function b_data(uInputs = {}) {
 
 function b_check() {
     const fieldset = `<fieldset>
-                        <form date-form-name='control'>
+                        <form data-form-name='control'>
                             <label for="prov">проверка</label>
                             <input type='checkbox' name="prov"></input>
 
@@ -59,20 +59,29 @@ function getType() {
 function getVals() {
     const values = {};
     const elems = Array.from(document.querySelectorAll('[data-form-inp]'));
-    const type = getType();
-
-
     elems.map(elem => {
         let inp = elem.dataset.formInp;
-        if (inp === 'id') {
-            //! доделать вывод даты готовности
-            values[inp] = `${elem.value}-${type}`
-        } else values[inp] = elem.value
+        values[inp] = elem.value
     });
     return values
 
 }
 
+function isDone(element) {
+    const btn = element.querySelector('input[type=button]');
+    const ch_boxes = element.querySelectorAll(`input[type=checkbox]`);
+    let result = [];
+    for (let cb of ch_boxes) {
+        result.push(cb.checked)
+    }
+    if (result.includes(false)) {
+        btn.disabled = true
+        return false
+    } else {
+        btn.disabled = false
+        return true
+    }
+}
 
 const template_out = `
 <div class="out_block">

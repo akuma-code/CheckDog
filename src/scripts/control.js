@@ -6,10 +6,19 @@ addbtn.addEventListener('click', (event = {}) => {
     const target = event.target;
     const data = getVals();
     const block = new OutBlock(data);
-    ls.add2LS()
+    ls.add2LS();
+    new LSBlock();
 
     return block.toHTML
 });
+
+window.addEventListener('keydown', event => {
+    if (event.key === 'Enter' && event.altKey) {
+        ls.clearDogs();
+        new LSBlock();
+        alert('Dogs cleared!')
+    }
+})
 
 
 
@@ -27,6 +36,7 @@ class LS {
     init() {
         this.loadForm();
         this.loadDogs();
+        new LSBlock();
     }
     add2LS() {
         const saved = getDogsFromLocalStorage();

@@ -115,3 +115,23 @@ input[name=summ] {
     width: 80px;
     font-weight: 800;
 }
+
+.ls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    border: 1px solid #000;
+    width: 400px;
+    height: fit-content;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.ls>ul {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    align-content: flex-start;
+}
