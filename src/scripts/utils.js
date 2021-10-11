@@ -9,11 +9,11 @@ function b_data(uInputs = {}) {
 
     const fieldset = `
     <fieldset data-form-name='data'>
-<legend>${name}</legend>
-<span >${id}</span>
-<span>${summ} руб.</span>
+<legend data-getvalue='name'>${name}</legend>
+<span data-getvalue='id'>${id}</span>
+<span data-getvalue='summ'>${summ} руб.</span>
 </fieldset > 
-<span>${date}</span>
+<span data-getvalue='date'>${date}</span>
 `;
 
     const elem = document.createElement('div');
@@ -26,17 +26,17 @@ function b_check() {
     const fieldset = `<fieldset>
                         <form data-form-name='control'>
                             <label for="prov">проверка</label>
-                            <input type='checkbox' name="prov"></input>
+                            <input type='checkbox' name="prov" data-getvalue='prov'></input>
 
                             <label for="correct">корректировка</label>
-                            <input type='checkbox' name="correct"></input>
+                            <input type='checkbox' name="correct" data-getvalue='correct'></input>
 
                             <label for="disp">диспетчерская</label>
                             <input type='checkbox' name="disp"></input>
 
                             <input type="button" value="DONE!" disabled>
                         </form>
-                        <legend '>Контроль</legend>
+                        <legend>Контроль</legend>
                     </fieldset>`
     const block = document.createElement('div');
     block.classList.add('block_check');
