@@ -35,10 +35,22 @@
 }
 
 .form_cont legend {
+    width: 100%;
+    display: flex;
     font-size: 1.15rem;
     color: #e2e2e2;
-    border: 1px solid chocolate;
+    border: 1px solid #d2691e;
     background-color: transparent;
+    flex-direction: row;
+    align-content: stretch;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form_cont legend[name=inputs] {
+    width: 80%;
+    height: 1.6rem;
 }
 
 [data-form-inp]~legend {

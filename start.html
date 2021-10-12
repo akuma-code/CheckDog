@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" lang="ru">
     <link rel="stylesheet" href="src/styleLoader.css">
     <title>Ведение договоров</title>
 </head>
@@ -24,13 +24,11 @@
                         <input type="text" name="id" data-form-inp="id" placeholder="id" data-getvalue="id">
                         <legend>Номер договора</legend>
                     </fieldset>
+                    <!--TODO:: сделать сортировку по ведущему манеджеру-->
                     <fieldset class="form_type">
-                        <legend>Менеджер</legend>
+                        <legend>Дополнительно</legend>
                         <div class="droplist_dops">
-                            <select name="manager" data-getvalue="manager" data-form-inp="manager">
-                             <option  value="Паша" selected>Роднянский П. Л.</option>
-                             <option  value="Катя">Нестерова Е. И.</option>
-                            </select>
+                            inp
                         </div>
                     </fieldset>
                     <fieldset>
@@ -45,7 +43,15 @@
 
                     <input type="button" name="inputs" value="Добавить" id="addbtn">
                 </form>
-                <legend name="inputs">ДОБАВЛЕНИЕ НОВОГО ДОГОВОРА</legend>
+                <legend name="inputs"><span>ДОБАВЛЕНИЕ НОВОГО ДОГОВОРА </span>
+                    <span>
+                        <span>Менеджер</span>
+                    <select name="manager" data-getvalue="manager" data-form-inp="manager">
+                             <option  value="Паша" selected>Роднянский П. Л.</option>
+                             <option  value="Катя">Нестерова Е. И.</option>
+                            </select>
+                    </span>
+                </legend>
             </fieldset>
         </div>
         <!-- !output -->

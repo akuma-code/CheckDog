@@ -13,7 +13,7 @@ class OutBlock {
         const control_block = new SubBlock_control(values).createElement();
 
         elem.classList.add('out_block');
-        elem.dataset.checked = '';
+        // elem.dataset.checked = '';
 
         elem.oncontextmenu = (event) => {
             // event.preventDefault();
@@ -135,14 +135,16 @@ class SubBlock_data {
             date,
             manager
         } = this.options;
-
+        const time_ru = (date) => new Date(date).toLocaleDateString()
+        this.options.control = getCorrectorUser(manager);
+        this.options.date = time_ru
         const data_block = `
 <fieldset data-form-name='data'>
 <legend ><span data-getvalue='name'>${name}</span> ведет: <span data-getvalue='manager'>${manager || ''}</span></legend>
 <span data-getvalue='id'>${id}</span>
 <span data-getvalue='summ'>${summ}</span><span>руб.</span>
 </fieldset > 
-<span data-getvalue='date'>${date}</span>
+<span data-getvalue='date'>${time_ru(date)}</span>
 `;
         const elem = document.createElement('div');
         elem.classList.add('block_data');
@@ -162,15 +164,15 @@ class SubBlock_control {
             prov,
             correct,
             disp,
-            controller
+            control
         } = this.options;
 
         const subblock = {
-            prov: `<input type='checkbox' name="prov" data-check='prov' ${(prov)?'checked':null}></input>`,
+            prov: `<input type='checkbox' name="prov" data-check='prov' ${(prov)?'checked':''}></input>`,
 
-            correct: `<input type='checkbox' name="correct" data-check='correct' ${(correct)?'checked':null}></input>`,
+            correct: `<input type='checkbox' name="correct" data-check='correct' ${(correct)?'checked':''}></input>`,
 
-            disp: `<input type='checkbox' name="disp" data-check='disp' ${(disp)?'checked':null}></input>`,
+            disp: `<input type='checkbox' name="disp" data-check='disp' ${(disp)?'checked':''}></input>`,
         }
         const block_control = `<fieldset>
                         <form data-form-name='control'>
@@ -185,7 +187,7 @@ class SubBlock_control {
 
                             <input type="button" value="DONE!" disabled>
                         </form>
-                        <legend>Контроль</legend>
+                        <legend><span>Контроль:</span> <span data-getvalue="control">${control}</span></legend>
                     </fieldset>`
         const elem = document.createElement('div');
         elem.classList.add('block_check');
