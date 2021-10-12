@@ -44,15 +44,11 @@ function b_check() {
     return block
 }
 
-function getType() {
-    const $form = document.querySelector('#Dogs_form');
-    const radio = Array.from($form.elements.type);
-    let result = '';
-    radio.forEach(input => {
-        if (input.checked) result = input.nextSibling.textContent
-    });
-    return result
-
+function dogCounter(startNumber = 0) {
+    let counter = startNumber;
+    return function() {
+        return counter++
+    }
 
 }
 
@@ -64,6 +60,19 @@ function getVals() {
         values[inp] = elem.value
     });
     return values
+}
+
+function getBlocks(id = '#out') {
+    const out = document.querySelector(id);
+    const blocks = out.querySelectorAll('div.out_block');
+    const checked = {};
+    const count = dogCounter(1)
+    for (let block of blocks) {
+        checked[count()] = block.dataset.checked || null
+    }
+    console.log({
+        checked
+    });
 
 }
 

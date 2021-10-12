@@ -17,16 +17,21 @@
                 <form name="inputs" class="form_inp" id="Dogs_form">
 
                     <fieldset>
-                        <input type="text" name="name" data-form-inp="name" placeholder="client">
+                        <input type="text" name="name" data-form-inp="name" placeholder="client" data-getvalue="name">
                         <legend>ФИО Заказчика</legend>
                     </fieldset>
                     <fieldset>
-                        <input type="text" name="id" data-form-inp="id" placeholder="id" value="">
+                        <input type="text" name="id" data-form-inp="id" placeholder="id" data-getvalue="id">
                         <legend>Номер договора</legend>
                     </fieldset>
                     <fieldset class="form_type">
-                        <legend>Тип</legend>
-
+                        <legend>Менеджер</legend>
+                        <div class="droplist_dops">
+                            <select name="manager" data-getvalue="manager" data-form-inp="manager">
+                             <option  value="Паша" selected>Роднянский П. Л.</option>
+                             <option  value="Катя">Нестерова Е. И.</option>
+                            </select>
+                        </div>
                     </fieldset>
                     <fieldset>
                         <input type="text" name="summ" data-form-inp="summ" placeholder="summ">

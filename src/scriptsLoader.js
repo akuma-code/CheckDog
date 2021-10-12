@@ -1,4 +1,7 @@
 const scripts = [{
+        id: 'ScriptsLoader'
+    },
+    {
         id: 'blocks',
         src: './src/scripts/blocks.js'
     }, {
@@ -15,7 +18,6 @@ const scripts = [{
     },
 ];
 
-console.log('Loader is ready!');
 
 
 class ScriptAppend {
@@ -37,10 +39,12 @@ class ScriptAppend {
 
 
 function loader() {
+    const loaded = [];
     scripts.forEach(item => {
         new ScriptAppend(item.src);
-        console.log(`${item.id} added`);
+        loaded.push(item.id)
     })
+    console.log(`Added scripts: ${loaded.join(', ')}`);
 }
 
 loader()
