@@ -22,6 +22,7 @@ function getVals() {
     props.map(elem => {
         if (elem.checked) {
             values.options.push(elem.labels[0].textContent)
+                //! пока отключу, чтобы хранилище не засирать переменными
             values[elem.name] = true
         }
     })
@@ -32,18 +33,16 @@ function getVals() {
     return values
 }
 
-function getBlocks(id = '#out') {
-    const out = document.querySelector(id);
-    const blocks = out.querySelectorAll('div.out_block');
-    const checked = {};
-    const count = dogCounter(1)
-    for (let block of blocks) {
-        checked[count()] = block.dataset.checked || null
-    }
-    console.log({
-        checked
-    });
+function getDogsFromLocalStorage() {
+    return JSON.parse(localStorage.getItem('dogs') || '[]')
+}
 
+function getFormFromLocalStorage() {
+    return JSON.parse(localStorage.getItem('form') || '[]')
+}
+
+function getActiveSessionFromLocalStorage() {
+    return JSON.parse(localStorage.getItem('ActiveSessionBlocks') || '[]')
 }
 
 function isDone(element) {
@@ -60,4 +59,47 @@ function isDone(element) {
         btn.disabled = false
         return true
     }
+}
+
+
+function getOutputBlocks() {
+    const output = document.getElementById('out');
+    const divList = Array.from(output.getElementsByClassName('out_block'));
+
+    let result = [];
+    divList.map(elem => {
+        // console.log(elem);
+        result.push(getBlockVals(elem));
+
+    });
+    return result
+}
+
+function updateActiveSessionBlocks() {
+    const active = getOutputBlocks();
+    localStorage.setItem('ActiveSessionBlocks', JSON.stringify(active))
+}
+
+function getBlockVals(block = {}) {
+
+    const blockDataValues = {};
+
+    const checkboxes = Array.from(block.querySelectorAll('input[type=checkbox]')) || [];
+    checkboxes.forEach(elem => {
+        if (elem.checked) blockDataValues[elem.name] = true
+    });
+
+    const radio = Array.from(block.querySelectorAll('input[type=radio]')) || [];
+    radio.forEach(elem => {
+        if (elem.checked) blockDataValues[elem.name] = true
+    });
+
+    const valueElems = Array.from(block.querySelectorAll('[data-getvalue]')) || [];
+    for (let elem of valueElems) {
+
+        const key = elem.dataset.getvalue;
+        blockDataValues[key] = elem.textContent
+    };
+    // console.log(data);
+    return blockDataValues
 }

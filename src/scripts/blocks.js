@@ -27,7 +27,7 @@ class OutBlock {
             const blockbtn = target.querySelector('input[type=button]');
             blockbtn.onclick = () => {
                 target.remove();
-                updateDogs()
+                updateActiveSessionBlocks()
             };
             isDone(form);
             if (event.target.matches('input[type=checkbox]')) {
@@ -53,21 +53,20 @@ class LSBlock {
 
     makeList() {
         const data = this.store;
-        const ul = document.createElement('ol');
+        const ol = document.createElement('ol');
         let list = '';
 
         // data.forEach(elem => list += `<li>${JSON.stringify(elem)}</li>`)
         for (let item of data) {
             const {
                 id,
-                name,
-
-            } = item;
-            list += `<li>${name} // ${id}</li>`
+                name
+            } = item || null;
+            list += `<li>${name||null} // ${id||null}</li>`
         }
-        ul.insertAdjacentHTML('afterbegin', list);
+        ol.insertAdjacentHTML('afterbegin', list);
 
-        return ul
+        return ol
     };
 
     placeElem(id, elem) {
@@ -82,62 +81,35 @@ class LSBlock {
     }
 };
 
-function getActiveDogs() {
-    const output = document.getElementById('out');
-    const divList = Array.from(output.getElementsByClassName('out_block'));
-
-    let result = [];
-    divList.map(elem => {
-        // console.log(elem);
-        result.push(getBlockVals(elem));
-
-    });
-    return result
-}
-
-function updateDogs() {
-    const active = getActiveDogs();
-    localStorage.setItem('activeDogs', JSON.stringify(active))
-}
-
-function getBlockVals(block = {}) {
-
-    const data = {};
-
-    const checkboxes = Array.from(block.querySelectorAll('input[type=checkbox]')) || [];
-    checkboxes.forEach(elem => {
-        if (elem.checked) data[elem.name] = elem.checked
-    });
-
-    const valueElems = Array.from(block.querySelectorAll('[data-getvalue]')) || [];
-    for (let elem of valueElems) {
-
-        const key = elem.dataset.getvalue;
-        data[key] = elem.textContent
-    };
-    // console.log(data);
-    return data
-}
 
 
 //!                                    data block
 class SubBlock_data {
     constructor(options = {}) {
-        this.options = options
+        this.props = options
     }
 
 
     createElement() {
+        const elem = document.createElement('div');
         const {
             name,
             id,
             summ,
             date,
-            manager
-        } = this.options;
-        const time_ru = (date) => new Date(Date.parse(date), 'dd-MM-yyyy')
-        this.options.control = getCorrectorUser(manager);
-        this.options.date = time_ru
+            manager,
+            options
+        } = this.props;
+        let subblock_options = ''
+        options.map(property => subblock_options += `<div>${property}</div>`);
+
+        const opt = document.createElement('div');
+        opt.classList.add('block_options');
+        opt.innerHTML = subblock_options;
+        console.log(opt, ':opt');
+        elem.insertAdjacentElement("beforeend", opt)
+        this.props.control = getCorrectorUser(manager);
+        // this.options.date = time_ru
         const data_block = `
 <fieldset data-form-name='data'>
 <legend ><span data-getvalue='name'>${name}</span> ведет: <span data-getvalue='manager'>${manager || ''}</span></legend>
@@ -146,7 +118,6 @@ class SubBlock_data {
 </fieldset > 
 <span data-getvalue='date'>${date}</span>
 `;
-        const elem = document.createElement('div');
         elem.classList.add('block_data');
         elem.insertAdjacentHTML('afterbegin', data_block);
         return elem
@@ -156,43 +127,67 @@ class SubBlock_data {
 //!                                        control block
 class SubBlock_control {
     constructor(options = {}) {
-        this.options = options
+        this.props = options
     }
 
     createElement() {
+        const elem = document.createElement('div');
         const {
             prov,
             correct,
             disp,
-            control
-        } = this.options;
+            control,
+
+        } = this.props;
 
         const subblock = {
-            prov: `<input id="check-prov"type='checkbox' name="prov" data-check='prov' ${(prov) ? 'checked' : ''}></input>`,
+            prov: `<input type='checkbox' name="prov" data-check='prov' ${(prov) ? 'checked' : ''}></input>`,
 
-            correct: `<input id="check-correct"type='checkbox' name="correct" data-check='correct' ${(correct) ? 'checked' :''}></input>`,
+            correct: `<input type='checkbox' name="correct" data-check='correct' ${(correct) ? 'checked' :''}></input>`,
 
-            disp: `<input id="check-disp"type='checkbox' name="disp" data-check='disp' ${(disp) ? 'checked' :''}></input>`,
-        }
+            disp: `<input type='checkbox' name="disp" data-check='disp' ${(disp) ? 'checked' :''}></input>`,
+        };
+
+
         const block_control = `<fieldset>
                         <form data-form-name='control'>
                             ${subblock.prov}
-                            <label for="check-prov">проверка</label>
+                            <label for="prov">проверка</label>
 
                             ${subblock.correct}
-                            <label for="check-correct">корректировка</label>
+                            <label for="correct">корректировка</label>
 
                             ${subblock.disp}
-                            <label for="check-disp">диспетчерская</label>
+                            <label for="disp">диспетчерская</label>
 
                             <input type="button" value="DONE!" disabled>
                         </form>
                         <legend><span>Контроль:</span> <span data-getvalue="control">${control}</span></legend>
                     </fieldset>`
-        const elem = document.createElement('div');
         elem.classList.add('block_check');
         elem.insertAdjacentHTML('afterbegin', block_control)
         return elem
     }
 
+};
+
+class OutputContainer {
+    constructor() {
+            this.out = document.querySelector('#out');
+            this.blockPool = [];
+
+        }
+        /**добавляет блок в контейнер */
+    addBlock(outBlock) {
+        this.blockPool.push(outBlock);
+        console.log('added', outBlock, 'size', this.blockPool.length);
+    }
+
+    toOUT() {
+        this.blockPool.forEach(block => block.toHTML)
+    }
+
+
 }
+
+const OC = new OutputContainer();

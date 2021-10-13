@@ -1,21 +1,27 @@
 //@ts-check
 const addbtn = document.querySelector('#addbtn'),
     elTypeForm = document.querySelector('fieldset.form_type');
+
+
 //@ts-ignore
-addbtn.addEventListener('click', (event = {}) => {
-    const data = getVals();
-    const block = new OutBlock(data);
-    ls.add2LS(data);
+addbtn.addEventListener('click', () => {
+    const formInputs = getVals();
+    const block = new OutBlock(formInputs);
+    OC.addBlock(block)
     new LSBlock();
+    ls.addActive2LS();
+    ls.add2LS(formInputs);
 
     return block.toHTML
 });
 
 window.addEventListener('keydown', event => {
     if (event.ctrlKey && event.altKey && event.key === 'e') {
-        ls.clearDogs();
+        let quest = confirm('Очистить данные?');
+
+        if (quest) ls.clearDogs();
+
         new LSBlock();
-        alert('Dogs cleared!')
     }
 
     if (event.ctrlKey && event.altKey && event.key === 'b') {
@@ -27,33 +33,18 @@ window.addEventListener('keydown', event => {
 
 
 window.addEventListener('beforeunload', () => {
-    ls.addActive2LS()
-    localStorage.setItem('dogs', JSON.stringify(getActiveDogs()))
+    // ls.add2LS(getActiveSessionFromLocalStorage())
+    updateActiveSessionBlocks();
+    localStorage.setItem('dogs', JSON.stringify(getOutputBlocks()))
 });
 
 window.addEventListener('load', () => ls.init())
 
-function getDogsFromLocalStorage() {
-    return JSON.parse(localStorage.getItem('dogs') || '[]')
-}
 
-function getFormFromLocalStorage() {
-    return JSON.parse(localStorage.getItem('form') || '[]')
-}
 
-function getActiveDogsFromLocalStorage() {
-    return JSON.parse(localStorage.getItem('activeDogs') || '[]')
-}
 
-function setOutHTML() {
-    const out = document.querySelector('#out');
-    const html = out.innerHTML;
-    localStorage.setItem('outhtml', html)
-}
 
-function getOutHTML() {
-    return localStorage.getItem('outhtml') || '';
-}
+
 
 class LS {
     init() {
@@ -71,8 +62,8 @@ class LS {
 
     }
     addActive2LS() {
-        const active = getActiveDogs();
-        localStorage.setItem('activeDogs', JSON.stringify(active))
+        const active = getOutputBlocks();
+        localStorage.setItem('ActiveSessionBlocks', JSON.stringify(active))
     }
     loadForm() {
         const inputs = document.querySelectorAll('[data-form-inp]');
@@ -84,8 +75,8 @@ class LS {
             elem.value = data[key] || ''
         })
     };
-    loadActiveDogs() {
-        const activeD = getActiveDogsFromLocalStorage() || [];
+    loadActiveBlocks() {
+        const activeD = getActiveSessionFromLocalStorage() || [];
         activeD.map(block => {
             new OutBlock(block).toHTML
         })

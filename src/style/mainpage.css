@@ -26,6 +26,16 @@
     transition: all .3s ease-out;
 }
 
+.block_options {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 170px;
+    height: 60px;
+    gap: 5px;
+}
+
 .form_options:hover {
     background-color: rgb(54, 54, 54);
     height: fit-content;
