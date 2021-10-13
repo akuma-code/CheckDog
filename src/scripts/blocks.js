@@ -53,7 +53,7 @@ class LSBlock {
 
     makeList() {
         const data = this.store;
-        const ul = document.createElement('ul');
+        const ul = document.createElement('ol');
         let list = '';
 
         // data.forEach(elem => list += `<li>${JSON.stringify(elem)}</li>`)
@@ -61,9 +61,9 @@ class LSBlock {
             const {
                 id,
                 name,
-                summ
+
             } = item;
-            list += `<li>${name} // ${id} // ${summ}</li>`
+            list += `<li>${name} // ${id}</li>`
         }
         ul.insertAdjacentHTML('afterbegin', list);
 
@@ -135,7 +135,7 @@ class SubBlock_data {
             date,
             manager
         } = this.options;
-        const time_ru = (date) => new Date(date).toLocaleDateString()
+        const time_ru = (date) => new Date(Date.parse(date), 'dd-MM-yyyy')
         this.options.control = getCorrectorUser(manager);
         this.options.date = time_ru
         const data_block = `
@@ -144,7 +144,7 @@ class SubBlock_data {
 <span data-getvalue='id'>${id}</span>
 <span data-getvalue='summ'>${summ}</span><span>руб.</span>
 </fieldset > 
-<span data-getvalue='date'>${time_ru(date)}</span>
+<span data-getvalue='date'>${date}</span>
 `;
         const elem = document.createElement('div');
         elem.classList.add('block_data');
@@ -168,22 +168,22 @@ class SubBlock_control {
         } = this.options;
 
         const subblock = {
-            prov: `<input type='checkbox' name="prov" data-check='prov' ${(prov)?'checked':''}></input>`,
+            prov: `<input id="check-prov"type='checkbox' name="prov" data-check='prov' ${(prov) ? 'checked' : ''}></input>`,
 
-            correct: `<input type='checkbox' name="correct" data-check='correct' ${(correct)?'checked':''}></input>`,
+            correct: `<input id="check-correct"type='checkbox' name="correct" data-check='correct' ${(correct) ? 'checked' :''}></input>`,
 
-            disp: `<input type='checkbox' name="disp" data-check='disp' ${(disp)?'checked':''}></input>`,
+            disp: `<input id="check-disp"type='checkbox' name="disp" data-check='disp' ${(disp) ? 'checked' :''}></input>`,
         }
         const block_control = `<fieldset>
                         <form data-form-name='control'>
-                            <label for="prov">проверка</label>
                             ${subblock.prov}
+                            <label for="check-prov">проверка</label>
 
-                            <label for="correct">корректировка</label>
                             ${subblock.correct}
+                            <label for="check-correct">корректировка</label>
 
-                            <label for="disp">диспетчерская</label>
                             ${subblock.disp}
+                            <label for="check-disp">диспетчерская</label>
 
                             <input type="button" value="DONE!" disabled>
                         </form>

@@ -10,6 +10,7 @@
 <body>
 
 
+    <!--TODO:: сделать сортировку по ведущему манеджеру-->
     <div class="app_cont">
         <!-- !inputs -->
         <div class="form_cont">
@@ -17,26 +18,37 @@
                 <form name="inputs" class="form_inp" id="Dogs_form">
 
                     <fieldset>
-                        <input type="text" name="name" data-form-inp="name" placeholder="client" data-getvalue="name">
+                        <input type="text" name="name" data-form-inp="name" placeholder="заказчик" data-getvalue="name" tabindex="1">
                         <legend>ФИО Заказчика</legend>
                     </fieldset>
                     <fieldset>
-                        <input type="text" name="id" data-form-inp="id" placeholder="id" data-getvalue="id">
+                        <input type="text" name="id" data-form-inp="id" placeholder="номер договора" data-getvalue="id" tabindex="2">
                         <legend>Номер договора</legend>
                     </fieldset>
-                    <!--TODO:: сделать сортировку по ведущему манеджеру-->
-                    <fieldset class="form_type">
+                    <fieldset class="form_options">
                         <legend>Дополнительно</legend>
-                        <div class="droplist_dops">
-                            inp
-                        </div>
+                        <ul class="droplist">
+                            <li><input type="radio" name="color" checked id="opt-white"><label for="opt-white">белый</label></li>
+                            <li><input type="radio" name="color" id="opt-lamin"><label for="opt-lamin">цветной</label>
+                            </li>
+                            <li><input type="radio" name="color" id="opt-spectr"><label for="opt-spectr">спектраль</label></li>
+                            <li><input type="checkbox" name="zhal" id="opt-zhal"><label for="opt-zhal">жалюзи</label>
+                            </li>
+                            <li><input type="checkbox" name="arc" id="opt-arc"><label for="opt-arc">арки</label></li>
+                            <li><input type="checkbox" name="crist" id="opt-crist"><label for="opt-crist">кристаллит</label>
+                            </li>
+                            <li><input type="checkbox" name="door" id="opt-door"><label for="opt-door">двери</label>
+                            </li>
+                            <li><input type="checkbox" name="stp" id="opt-stp"><label for="opt-stp">стекло</label></li>
+                            <li><input type="checkbox" name="perep" id="opt-perep"><label for="opt-perep">переплет</label></li>
+                        </ul>
                     </fieldset>
-                    <fieldset>
-                        <input type="text" name="summ" data-form-inp="summ" placeholder="summ">
+                    <fieldset class="form_summ">
+                        <input type="text" name="summ" data-form-inp="summ" placeholder="стоимость" tabindex="3">
                         <legend>Цена, руб.</legend>
                     </fieldset>
                     <fieldset>
-                        <input type="date" name="date" data-form-inp="date" placeholder="date">
+                        <input type="date" name="date" data-form-inp="date" placeholder="дата изготовления" tabindex="4">
                         <legend>Дата готовности</legend>
                     </fieldset>
 
@@ -47,9 +59,9 @@
                     <span>
                         <span>Менеджер</span>
                     <select name="manager" data-getvalue="manager" data-form-inp="manager">
-                             <option  value="Паша" selected>Роднянский П. Л.</option>
-                             <option  value="Катя">Нестерова Е. И.</option>
-                            </select>
+                            <option value="Паша" selected>Роднянский П. Л.</option>
+                            <option value="Катя">Нестерова Е. И.</option>
+                        </select>
                     </span>
                 </legend>
             </fieldset>
@@ -58,7 +70,7 @@
         <div class="output" data-id="output" id="out">
         </div>
     </div>
-    <div class="ls" id="showLS"></div>
+    <div class="ls elem_hide" id="showLS"></div>
 </body>
 
 <script src="src/scriptsLoader.js"></script>

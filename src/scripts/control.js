@@ -17,6 +17,12 @@ window.addEventListener('keydown', event => {
         new LSBlock();
         alert('Dogs cleared!')
     }
+
+    if (event.ctrlKey && event.altKey && event.key === 'b') {
+
+        const showLS = document.querySelector('#showLS');
+        (showLS.classList.contains('elem_hide')) ? showLS.classList.remove('elem_hide'): showLS.classList.add('elem_hide')
+    }
 })
 
 

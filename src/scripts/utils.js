@@ -14,11 +14,19 @@ function dogCounter(startNumber = 0) {
 }
 
 function getVals() {
-    const values = {};
+    const values = {
+        options: [],
+    };
     const elems = Array.from(document.querySelectorAll('[data-form-inp]'));
+    const props = Array.from(document.querySelector('fieldset.form_options').elements) || [];
+    props.map(elem => {
+        if (elem.checked) {
+            values.options.push(elem.labels[0].textContent)
+            values[elem.name] = true
+        }
+    })
     elems.map(elem => {
         let inp = elem.dataset.formInp;
-        // if (inp === 'date') elem.value = Date(elem.value)
         values[inp] = elem.value
     });
     return values
