@@ -8,8 +8,8 @@ addbtn.addEventListener('click', () => {
     const formInputs = getVals();
     const block = new OutBlock(formInputs);
     OC.addBlock(block)
-    new LSBlock();
-    ls.addActive2LS();
+        // new LSBlock();
+        // ls.addActive2LS();
     ls.add2LS(formInputs);
 
     return block.toHTML
@@ -35,10 +35,15 @@ window.addEventListener('keydown', event => {
 window.addEventListener('beforeunload', () => {
     // ls.add2LS(getActiveSessionFromLocalStorage())
     updateActiveSessionBlocks();
+    OC.saveContainerToLS();
     localStorage.setItem('dogs', JSON.stringify(getOutputBlocks()))
 });
 
-window.addEventListener('load', () => ls.init())
+window.addEventListener('load', () => {
+    ls.init();
+    OC.loadContainer();
+    OC.toOUT();
+})
 
 
 
@@ -54,11 +59,11 @@ class LS {
         new LSBlock();
     };
 
-    add2LS(data) {
+    add2LS(block) {
         const saved = getDogsFromLocalStorage();
-        saved.push(data);
+        saved.push(block);
         localStorage.setItem('dogs', JSON.stringify(saved));
-        localStorage.setItem('form', JSON.stringify(data));
+        localStorage.setItem('form', JSON.stringify(block));
 
     }
     addActive2LS() {

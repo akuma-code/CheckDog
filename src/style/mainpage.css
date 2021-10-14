@@ -18,12 +18,16 @@
     flex-wrap: nowrap;
 }
 
-.form_options {
+fieldset.form_options {
     display: flex;
     min-inline-size: 40px;
     overflow: visible;
     z-index: 5;
     transition: all .3s ease-out;
+}
+
+fieldset[data-form-name=options]>div {
+    border: 1px solid #000;
 }
 
 .block_options {

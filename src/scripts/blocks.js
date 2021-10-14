@@ -1,16 +1,17 @@
 class OutBlock {
-    constructor(data = {}) {
-        this.data = data;
+    constructor(data) {
+        this.content = data
     }
 
     get toHTML() {
-        return document.querySelector('#out').insertAdjacentElement('beforeend', this.makeBlock(this.data))
+        return document.querySelector('#out').insertAdjacentElement('beforeend', this.makeBlock(this.content))
     }
 
     makeBlock(values) {
         const elem = document.createElement('div');
         const data_block = new SubBlock_data(values).createElement();
         const control_block = new SubBlock_control(values).createElement();
+        const options_block = new SubBlock_options(values).createElement();
 
         elem.classList.add('out_block');
         // elem.dataset.checked = '';
@@ -36,7 +37,7 @@ class OutBlock {
             }
 
         }, true)
-
+        elem.insertAdjacentElement('afterbegin', options_block)
         elem.insertAdjacentElement('afterbegin', data_block);
         elem.insertAdjacentElement('beforeend', control_block);
 
@@ -98,16 +99,9 @@ class SubBlock_data {
             summ,
             date,
             manager,
-            options
         } = this.props;
-        let subblock_options = ''
-        options.map(property => subblock_options += `<div>${property}</div>`);
 
-        const opt = document.createElement('div');
-        opt.classList.add('block_options');
-        opt.innerHTML = subblock_options;
-        console.log(opt, ':opt');
-        elem.insertAdjacentElement("beforeend", opt)
+
         this.props.control = getCorrectorUser(manager);
         // this.options.date = time_ru
         const data_block = `
@@ -168,14 +162,35 @@ class SubBlock_control {
         elem.insertAdjacentHTML('afterbegin', block_control)
         return elem
     }
-
 };
+
+
+//!                          options
+class SubBlock_options {
+    constructor(values = {}) {
+        this.list = values.options || {}
+    }
+
+    createElement() {
+        const options = Array.from(this.list)
+        let div = ''
+        const elem = document.createElement('div');
+
+        options.map(property => div += `<div>${property}</div>`);
+
+        elem.classList.add('block_options');
+        elem.innerHTML = `<fieldset data-form-name="options">
+        <legend>Опции</legend>
+        ${div}
+        </fieldset>`;
+        return elem
+    }
+}
 
 class OutputContainer {
     constructor() {
             this.out = document.querySelector('#out');
             this.blockPool = [];
-
         }
         /**добавляет блок в контейнер */
     addBlock(outBlock) {
@@ -186,8 +201,18 @@ class OutputContainer {
     toOUT() {
         this.blockPool.forEach(block => block.toHTML)
     }
-
-
+    saveContainerToLS() {
+        localStorage.setItem('savedBlocks', JSON.stringify(this.blockPool))
+    }
+    loadContainer() {
+        const saved = JSON.parse(localStorage.getItem('savedBlocks')) || [];
+        if (saved.length > 0) {
+            this.blockPool.push(saved)
+        } else {
+            console.log('в локальном хранилище пусто!');
+            // this.blockPool = []
+        }
+    }
 }
 
 const OC = new OutputContainer();

@@ -15,15 +15,15 @@ function dogCounter(startNumber = 0) {
 
 function getVals() {
     const values = {
-        options: [],
+        options: {},
     };
     const elems = Array.from(document.querySelectorAll('[data-form-inp]'));
     const props = Array.from(document.querySelector('fieldset.form_options').elements) || [];
     props.map(elem => {
         if (elem.checked) {
-            values.options.push(elem.labels[0].textContent)
-                //! пока отключу, чтобы хранилище не засирать переменными
-            values[elem.name] = true
+            // values.options.push(elem.labels[0].textContent)
+            //! пока отключу, чтобы хранилище не засирать переменными
+            values.options[elem.name] = true
         }
     })
     elems.map(elem => {
@@ -102,4 +102,8 @@ function getBlockVals(block = {}) {
     };
     // console.log(data);
     return blockDataValues
+}
+
+function spylog() {
+    return console.log
 }
