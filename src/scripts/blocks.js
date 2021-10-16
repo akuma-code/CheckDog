@@ -191,6 +191,7 @@ class OutputContainer {
     constructor() {
             this.out = document.querySelector('#out');
             this.blockPool = [];
+            this.blockPool.length = 0;
         }
         /**добавляет блок в контейнер */
     addBlock(outBlock) {
@@ -202,7 +203,7 @@ class OutputContainer {
         this.blockPool.forEach(block => block.toHTML)
     }
     saveContainerToLS() {
-        localStorage.setItem('savedBlocks', JSON.stringify(this.blockPool))
+        localStorage.setItem('savedBlocks', JSON.stringify(...this.blockPool))
     }
     loadContainer() {
         const saved = JSON.parse(localStorage.getItem('savedBlocks')) || [];
@@ -215,4 +216,4 @@ class OutputContainer {
     }
 }
 
-const OC = new OutputContainer();
+const OC = new OutputContainer;

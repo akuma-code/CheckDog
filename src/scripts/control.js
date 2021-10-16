@@ -7,12 +7,12 @@ const addbtn = document.querySelector('#addbtn'),
 addbtn.addEventListener('click', () => {
     const formInputs = getVals();
     const block = new OutBlock(formInputs);
-    OC.addBlock(block)
-        // new LSBlock();
-        // ls.addActive2LS();
-    ls.add2LS(formInputs);
+    // OC.addBlock(block)
+    // new LSBlock();
+    // ls.addActive2LS();
+    // ls.add2LS(formInputs);
 
-    return block.toHTML
+    return block
 });
 
 window.addEventListener('keydown', event => {
@@ -35,14 +35,14 @@ window.addEventListener('keydown', event => {
 window.addEventListener('beforeunload', () => {
     // ls.add2LS(getActiveSessionFromLocalStorage())
     updateActiveSessionBlocks();
-    OC.saveContainerToLS();
+
     localStorage.setItem('dogs', JSON.stringify(getOutputBlocks()))
 });
 
 window.addEventListener('load', () => {
     ls.init();
-    OC.loadContainer();
-    OC.toOUT();
+    // OC.loadContainer();
+    // OC.toOUT();
 })
 
 
