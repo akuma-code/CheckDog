@@ -1,4 +1,3 @@
-//@ts-check
 /**выдает данные с формы {data, options}
  */
 function getFormDataInputs() {
@@ -38,27 +37,13 @@ function getFormDataInputs() {
     }
 }
 
-function getChecked(blockElement, type) {
-    const elemsArr = Array.from(blockElement.children)
 
-    const result = {};
-    elemsArr.map(elem => {
-        if (elem[type] === 'radio')
-        // const dataset = elem.dataset;
-        // const name = dataset[selector];
-        // spylog(elem.dataset[selector])
-        // result[name] = (elem.value) ? elem.value : null
-            if (elem.checked) result[elem.name] = true
-    });
-    return result
-}
 class UIVals {
     constructor() {
-        this.data = this.FormValues().data
-        this.options = this.FormValues().options
+        this.update
     }
 
-    FormValues() {
+    get newValues() {
         /**данные для блока данных */
         const form = {
             checkedID: {}
@@ -86,17 +71,20 @@ class UIVals {
                 form.checkedID[elem.name] = elem.checked
             if (elem.checked) options.checked.push(elem.labels[0].textContent)
         });
-
-
-        // debugger
         return {
             data: form,
             options: options
         }
-    }
+    };
 
+    get update() {
+        return this.newValues
+    }
 }
 
+const _data = new UIVals()
+
+/** Базовый Блок */
 class Block {
     constructor(formInp = {}) {
         this.data = formInp.data || {};
@@ -108,7 +96,7 @@ class Block {
         return `Block.toHTML not defined!!`
     }
 }
-
+/**подБлок с данными */
 class Outblock_data extends Block {
     constructor(data) {
         super(data)
@@ -135,7 +123,7 @@ class Outblock_data extends Block {
         return div
     }
 };
-
+/**подБлок с опциями */
 class Outblock_options extends Block {
     constructor(data) {
         super(data)
@@ -144,7 +132,8 @@ class Outblock_options extends Block {
 
     toHTML() {
         let list = '';
-        return this.options.checked.map(elem => list += `<div>${elem}</div>`)
+        this.options.checked.map(elem => list += `<div>${elem}</div>`)
+        return list
     }
 
     get block() {
@@ -155,23 +144,23 @@ class Outblock_options extends Block {
         return div
     }
 }
-
+/**подБлок контроля */
 class Outblock_control extends Block {
     constructor() {
         super()
-        this.type = 'block_control'
+        this.blocktype = 'block_control'
     }
 
     toHTML() {
         const checkblock = `<fieldset>
                         <form data-form-name='control'>
-                            <input type='checkbox' name="prov" data-check='prov'}></input>
+                            <input type='checkbox' name="prov" data-check='prov'></input>
                             <label for="prov">проверка</label>
 
-                            <input type='checkbox' name="correct" data-check='correct' }></input>
+                            <input type='checkbox' name="correct" data-check='correct'></input>
                             <label for="correct">корректировка</label>
 
-                            <input type='checkbox' name="disp" data-check='disp'}></input>
+                            <input type='checkbox' name="disp" data-check='disp'></input>
                             <label for="disp">диспетчерская</label>
 
                             <input type="button" value="DONE!" disabled>
@@ -214,9 +203,7 @@ class BlockPreview {
 const bp = new BlockPreview()
 
 class BlockFactory {
-    constructor() {
-
-    }
+    constructor() {}
 
     static list = {
         data: Outblock_data,
@@ -224,58 +211,106 @@ class BlockFactory {
         control: Outblock_control
     }
 
-    static OutputBlock = [this.list.data, this.list.options, this.list.control]
-
-
     get UIdata() {
-        return getFormDataInputs()
+        const {
+            data,
+            options
+        } = getFormDataInputs()
+        return {
+            data,
+            options
+        }
     }
-
-
 
     create(type) {
-
+        if (type === 'control') return new BlockFactory.list.control
+        else return new BlockFactory.list[type](getFormDataInputs())
     }
-
 
 }
 
-const factory = new BlockFactory();
+class BlockDataBase {
+    constructor() {
+        this.pool = []
+            // this.loadPool()
+    }
 
-const blocks = [
-    factory.create('data'),
-    factory.create('options'),
-    factory.create('control'),
-];
+    add(block) {
+        console.log(block);
+        this.pool.push(block)
+        this.pool.length
+        return
+    }
 
-function makeBlock() {
+    get clear() {
+        // localStorage.removeItem('savedblocks')
+        return this.pool.length = 0
+    }
+    get save() {
+        const lsb = JSON.parse(localStorage.getItem('savedblocks')) || [];
+        lsb.push(this.pool);
+        localStorage.setItem('savedblocks', JSON.stringify(this.pool))
+        this.clear
+    }
+    loadPool() {
+        const lsb = JSON.parse(localStorage.getItem('savedblocks'));
+        if (!localStorage.getItem('savedblocks')) return this.pool
+        const out = (data) => new OutBlockBuilder(data)
+
+        this.pool = lsb
+        lsb.forEach(item => document.querySelector('#out').insertAdjacentElement("afterbegin", out(item).makeOutBlock()))
+        return this.pool.length
+    }
+
+    findInd(searchItem) {
+        return this.pool.findIndex(item => searchItem === item.data.id)
+    }
+
+    remove(blockID) {
+        const temp = [];
+        const removeIndex = this.findInd(blockID);
+        this.pool.forEach((item, index) => {
+            if (index !== removeIndex) temp.push(item)
+            else {
+                console.log('removed: ', item)
+                item = null
+            }
+        });
+        this.pool.length = 0;
+        this.pool = temp;
+        return this.pool
+    }
+}
+
+
+
+function makeBlock(blocks = []) {
+
+
+
     const elem = document.createElement('div');
     const [data_block, options_block, control_block] = blocks
-    // const data_block = new Outblock_data(values).block
-    // const control_block = new SubBlock_control(values).createElement();
-    // const options_block = new SubBlock_options(values).createElement();
+    const checked = {};
 
     elem.classList.add('out_block');
-    // elem.dataset.checked = '';
 
     elem.oncontextmenu = (event) => {
         // event.preventDefault();
         if (event.altKey) elem.remove()
     };
 
-    const checked = {};
     elem.addEventListener('click', event => {
-        const target = event.currentTarget;
-        const form = target.querySelector('form');
-        const blockbtn = target.querySelector('input[type=button]');
+        const currentTarget = event.currentTarget;
+        const form = currentTarget.querySelector('form');
+        const blockbtn = currentTarget.querySelector('input[type=button]');
         blockbtn.onclick = () => {
-            target.remove();
-            updateActiveSessionBlocks()
+            currentTarget.remove();
+            // updateActiveSessionBlocks()
         };
         isDone(form);
         if (event.target.matches('input[type=checkbox]')) {
             checked[event.target.name] = (event.target.checked) ? true : false
-            event.target.closest('div.block_check').dataset.checked = JSON.stringify(checked)
+                // event.target.closest('div.block_check').dataset.checked = JSON.stringify(checked)
         }
 
     }, true)
@@ -285,3 +320,43 @@ function makeBlock() {
 
     return elem
 }
+
+class OutBlockBuilder extends Block {
+    constructor({ data, options }) {
+        super(data, options)
+    }
+    static list = {
+        data: Outblock_data,
+        options: Outblock_options,
+        control: Outblock_control
+    }
+    makeOutBlock() {
+        const elem = document.createElement('div');
+        const control = new Outblock_control().block;
+        const options = new Outblock_options(_data.update).block;
+        const datablock = new Outblock_data(_data.update).block;
+        elem.classList.add('out_block');
+        elem.oncontextmenu = (event) => {
+            if (event.altKey) elem.remove()
+        };
+        elem.addEventListener('click', event => {
+            const currentTarget = event.currentTarget;
+            const form = currentTarget.querySelector('form');
+            const blockbtn = currentTarget.querySelector('input[type=button]');
+            blockbtn.onclick = () => {
+                currentTarget.remove();
+                // updateActiveSessionBlocks()
+            };
+            isDone(form);
+            if (event.target.matches('input[type=checkbox]')) {
+                this.options[event.target.name] = (event.target.checked) ? true : false
+            }
+        }, true);
+        elem.insertAdjacentElement('afterbegin', control);
+        elem.insertAdjacentElement('afterbegin', options);
+        elem.insertAdjacentElement('afterbegin', datablock);
+        return elem
+    }
+};
+
+const bdb = new BlockDataBase();

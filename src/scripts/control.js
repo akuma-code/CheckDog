@@ -2,19 +2,23 @@
 const addbtn = document.querySelector('#addbtn'),
     elTypeForm = document.querySelector('fieldset.form_type');
 
-
 //@ts-ignore
 addbtn.addEventListener('click', () => {
-    localStorage.setItem('lastInputs', JSON.stringify(getFormDataInputs()))
-    const formInputs = getFormDataInputs();
-    const block = new Outblock_data(formInputs);
-    // const block = new OutBlock(formInputs);
-    // OC.addBlock(block)
-    // new LSBlock();
-    // ls.addActive2LS();
-    // ls.add2LS(formInputs);
 
-    return
+    bdb.add(_data.update)
+    const out = new OutBlockBuilder(_data.update).makeOutBlock()
+
+    document.querySelector('#out').insertAdjacentElement("afterbegin", out)
+        // const formInputs = getFormDataInputs();
+    localStorage.setItem('lastInputs', JSON.stringify(_data.update))
+        // const block = new Outblock_data(formInputs);
+        // const block = new OutBlock(formInputs);
+        // OC.addBlock(block)
+        // new LSBlock();
+        // ls.addActive2LS();
+        // ls.add2LS(formInputs);
+
+
 });
 
 window.addEventListener('keydown', event => {
@@ -35,25 +39,31 @@ window.addEventListener('keydown', event => {
 
 
 window.addEventListener('beforeunload', () => {
-    localStorage.setItem('lastInputs', JSON.stringify(getFormDataInputs()))
-        // ls.add2LS(getActiveSessionFromLocalStorage())
-        // updateActiveSessionBlocks();
+
+    // localStorage.setItem('lastInputs', JSON.stringify(getFormDataInputs()))
+    bdb.save
+    console.log(bdb.pool);
+
+    // ls.add2LS(getActiveSessionFromLocalStorage())
+    // updateActiveSessionBlocks();
 
     // localStorage.setItem('dogs', JSON.stringify(getOutputBlocks()))
 });
 
 window.addEventListener('load', () => {
     restoreForm()
-        // ls.init();
-        // OC.loadContainer();
-        // OC.toOUT();
+    bdb.loadPool()
+    console.log(bdb.pool);
+    // ls.init();
+    // OC.loadContainer();
+    // OC.toOUT();
 })
 
 
 class LS {
     init() {
         this.loadForm();
-        this.loadDogs();
+        // this.loadDogs();
         // this.loadActiveDogs();
         new LSBlock();
     };
