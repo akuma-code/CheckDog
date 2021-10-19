@@ -6,7 +6,7 @@ const addbtn = document.querySelector('#addbtn'),
 addbtn.addEventListener('click', () => {
 
     bdb.add(_data.update)
-    const out = new OutBlockBuilder(_data.update).makeOutBlock()
+    const out = new OutBlockBuilder(_data.update).makeOutBlock(_data.update)
 
     document.querySelector('#out').insertAdjacentElement("afterbegin", out)
         // const formInputs = getFormDataInputs();

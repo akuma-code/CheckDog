@@ -255,10 +255,10 @@ class BlockDataBase {
     loadPool() {
         const lsb = JSON.parse(localStorage.getItem('savedblocks'));
         if (!localStorage.getItem('savedblocks')) return this.pool
-        const out = (data) => new OutBlockBuilder(data)
+        const out = (data) => new OutBlockBuilder(data).makeOutBlock(data)
 
         this.pool = lsb
-        lsb.forEach(item => document.querySelector('#out').insertAdjacentElement("afterbegin", out(item).makeOutBlock()))
+        lsb.forEach(item => document.querySelector('#out').insertAdjacentElement("afterbegin", out(item)))
         return this.pool.length
     }
 
@@ -330,11 +330,11 @@ class OutBlockBuilder extends Block {
         options: Outblock_options,
         control: Outblock_control
     }
-    makeOutBlock() {
+    makeOutBlock(data) {
         const elem = document.createElement('div');
         const control = new Outblock_control().block;
-        const options = new Outblock_options(_data.update).block;
-        const datablock = new Outblock_data(_data.update).block;
+        const options = new Outblock_options(data).block;
+        const datablock = new Outblock_data(data).block;
         elem.classList.add('out_block');
         elem.oncontextmenu = (event) => {
             if (event.altKey) elem.remove()
