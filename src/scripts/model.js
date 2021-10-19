@@ -200,7 +200,7 @@ class BlockPreview {
     }
 }
 
-const bp = new BlockPreview()
+
 
 class BlockFactory {
     constructor() {}
@@ -236,9 +236,9 @@ class BlockDataBase {
     }
 
     add(block) {
-        console.log(block);
         this.pool.push(block)
-        this.pool.length
+        console.log('added', block, 'size:', this.pool.length);
+
         return
     }
 
@@ -345,7 +345,8 @@ class OutBlockBuilder extends Block {
             const blockbtn = currentTarget.querySelector('input[type=button]');
             blockbtn.onclick = () => {
                 currentTarget.remove();
-                // updateActiveSessionBlocks()
+                bdb.remove(data.data.id)
+                    // updateActiveSessionBlocks()
             };
             isDone(form);
             if (event.target.matches('input[type=checkbox]')) {

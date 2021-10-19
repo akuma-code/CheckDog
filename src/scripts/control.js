@@ -25,7 +25,7 @@ window.addEventListener('keydown', event => {
     if (event.ctrlKey && event.altKey && event.key === 'e') {
         let quest = confirm('Очистить данные?');
 
-        if (quest) ls.clearDogs();
+        if (quest) bdb.clear
 
         new LSBlock();
     }
