@@ -5,14 +5,16 @@ const addbtn = document.querySelector('#addbtn'),
 
 //@ts-ignore
 addbtn.addEventListener('click', () => {
-    const formInputs = getVals();
-    const block = new OutBlock(formInputs);
+    localStorage.setItem('lastInputs', JSON.stringify(getFormDataInputs()))
+    const formInputs = getFormDataInputs();
+    const block = new Outblock_data(formInputs);
+    // const block = new OutBlock(formInputs);
     // OC.addBlock(block)
     // new LSBlock();
     // ls.addActive2LS();
     // ls.add2LS(formInputs);
 
-    return block
+    return
 });
 
 window.addEventListener('keydown', event => {
@@ -33,22 +35,19 @@ window.addEventListener('keydown', event => {
 
 
 window.addEventListener('beforeunload', () => {
-    // ls.add2LS(getActiveSessionFromLocalStorage())
-    updateActiveSessionBlocks();
+    localStorage.setItem('lastInputs', JSON.stringify(getFormDataInputs()))
+        // ls.add2LS(getActiveSessionFromLocalStorage())
+        // updateActiveSessionBlocks();
 
-    localStorage.setItem('dogs', JSON.stringify(getOutputBlocks()))
+    // localStorage.setItem('dogs', JSON.stringify(getOutputBlocks()))
 });
 
 window.addEventListener('load', () => {
-    ls.init();
-    // OC.loadContainer();
-    // OC.toOUT();
+    restoreForm()
+        // ls.init();
+        // OC.loadContainer();
+        // OC.toOUT();
 })
-
-
-
-
-
 
 
 class LS {

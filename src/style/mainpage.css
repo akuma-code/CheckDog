@@ -221,9 +221,9 @@
         display: none;
     }
     
-    .preview {
+    .preview_field {
         display: flex;
-        width: 100%;
+        width: 1100px;
         border: 1px solid #000;
         height: auto;
         flex-wrap: wrap;

@@ -18,22 +18,22 @@
                 <form name="inputs" class="form_inp" id="Dogs_form">
 
                     <fieldset>
-                        <input type="text" name="name" data-form-inp="name" placeholder="заказчик" data-getvalue="name" tabindex="1">
+                        <input type="text" name="name" data-get-input="name" data-form-inp="name" placeholder="заказчик" data-restore="name" tabindex="1">
                         <legend>ФИО Заказчика</legend>
                     </fieldset>
                     <fieldset>
-                        <input type="text" name="id" data-form-inp="id" placeholder="номер договора" data-getvalue="id" tabindex="2">
+                        <input type="text" name="id" data-get-input="id" data-form-inp="id" placeholder="номер договора" data-restore="id" tabindex="2">
                         <legend>Номер договора</legend>
                     </fieldset>
-                    <fieldset class="form_options">
+                    <fieldset class="form_options" data-get-input="options" data-restore="options">
                         <legend>Дополнительно</legend>
-                        <ul class="droplist color">
-                            <li><input type="radio" name="color" checked id="opt-white"><label for="opt-white">белый</label></li>
-                            <li><input type="radio" name="color" id="opt-lamin"><label for="opt-lamin">цветной</label>
+                        <ul class="droplist color" data-restore="options">
+                            <li><input type="radio" name="color" id="color-white" checked><label for="color-white">белый</label></li>
+                            <li><input type="radio" name="color" id="color-lamin"><label for="color-lamin">цветной</label>
                             </li>
-                            <li><input type="radio" name="color" id="opt-spectr"><label for="opt-spectr">спектраль</label></li>
+                            <li><input type="radio" name="color" id="color-spectr"><label for="color-spectr">спектраль</label></li>
                         </ul>
-                        <ul class="droplist">
+                        <ul class="droplist" data-restore="options">
 
                             <li><input type="checkbox" name="zhal" id="opt-zhal"><label for="opt-zhal">жалюзи</label>
                             </li>
@@ -47,11 +47,11 @@
                         </ul>
                     </fieldset>
                     <fieldset class="form_summ">
-                        <input type="text" name="summ" data-form-inp="summ" placeholder="стоимость" tabindex="3">
+                        <input type="text" name="summ" data-get-input="summ" data-form-inp="summ" placeholder="стоимость" data-restore="summ" tabindex="3">
                         <legend>Цена, руб.</legend>
                     </fieldset>
                     <fieldset>
-                        <input type="date" name="date" data-form-inp="date" placeholder="дата изготовления" tabindex="4">
+                        <input type="date" name="date" data-get-input="date" data-restore="date" data-form-inp="date" placeholder="дата изготовления" tabindex="4">
                         <legend>Дата готовности</legend>
                     </fieldset>
 
@@ -61,7 +61,7 @@
                 <legend name="inputs"><span>ДОБАВЛЕНИЕ НОВОГО ДОГОВОРА </span>
                     <span>
                         <span>Менеджер</span>
-                    <select name="manager" data-getvalue="manager" data-form-inp="manager">
+                    <select name="manager" data-get-input="manager" data-restore="manager" data-form-inp="manager">
                             <option value="Паша" selected>Роднянский П. Л.</option>
                             <option value="Катя">Нестерова Е. И.</option>
                         </select>
@@ -73,7 +73,7 @@
         <div class="output" data-id="output" id="out">
         </div>
     </div>
-    <div class="preview" id="preview"></div>
+    <div class="preview_field" id="preview"></div>
     <div class="ls elem_hide" id="showLS"></div>
 </body>
 

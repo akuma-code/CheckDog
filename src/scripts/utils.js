@@ -40,9 +40,36 @@ function getDogsFromLocalStorage() {
 function getFormFromLocalStorage() {
     return JSON.parse(localStorage.getItem('form') || '[]')
 }
+/**@returns data,options   */
+function loadLastInputsFromLS() {
+    const saved = JSON.parse(localStorage.getItem('lastInputs') || '{}');
+    const {
+        data,
+        options
+    } = saved
+    return {
+        data,
+        options
+    }
+
+}
 
 function getActiveSessionFromLocalStorage() {
     return JSON.parse(localStorage.getItem('ActiveSessionBlocks') || '[]')
+}
+
+function restoreForm() {
+    const {
+        data,
+        options
+    } = loadLastInputsFromLS();
+    const restoreElems = Array.from(document.querySelectorAll('[data-restore]'));
+    restoreElems.map(element => {
+        const key = element.dataset.restore;
+        // spylog(`${key}: ${data[key]}`)
+        if (key === 'manager') element.value = data[key]
+        element.value = data[key];
+    })
 }
 
 function isDone(element) {
@@ -104,6 +131,6 @@ function getBlockVals(block = {}) {
     return blockDataValues
 }
 
-function spylog() {
-    return console.log
+function spylog(args) {
+    return console.log.call(this, args)
 }
