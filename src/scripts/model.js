@@ -1,6 +1,6 @@
 /**выдает данные с формы {data, options}
  */
-function getFormDataInputs() {
+function getFormDataInputs2() {
     /**данные для блока данных */
     const form = {
         checkedID: {}
@@ -37,6 +37,7 @@ function getFormDataInputs() {
     }
 }
 
+const dateReverse = (value) => Array.from(value).join('').split('-').reverse().join('-');
 
 class UIVals {
     constructor() {
@@ -51,8 +52,10 @@ class UIVals {
         /**опции для блока данных */
         const options = {
             checked: [],
+            status: []
 
         };
+
         /**елементы с формы с тегом [data-form-inp] */
         const $formElements = Array.from(document.querySelectorAll('[data-get-input]')) || [];
         /**елементы с формы с тегом fieldset.form_options */
@@ -60,12 +63,14 @@ class UIVals {
 
         $formElements.forEach(elem => {
             let input = elem.dataset.getInput;
-            if (elem.type == 'text' || elem.type == 'date') {
+            if (elem.type == 'text') {
                 form[input] = elem.value
             };
+            if (elem.type == 'date') form[input] = dateReverse(elem.value);
             if (elem.name === 'manager') form[input] = elem.value
         });
 
+        const poolId = Array.from(form.id).join('').slice(0, form.id.length - 4)
         $optionsElements.forEach(elem => {
             (elem.name === 'color') ? form.checkedID[elem.id] = elem.checked:
                 form.checkedID[elem.name] = elem.checked
@@ -73,6 +78,7 @@ class UIVals {
         });
         return {
             data: form,
+            dogId: poolId,
             options: options
         }
     };
@@ -82,13 +88,14 @@ class UIVals {
     }
 }
 
-const _data = new UIVals()
+const _data = new UIVals
 
 /** Базовый Блок */
 class Block {
-    constructor(formInp = {}) {
+    constructor(formInp = _data.update) {
         this.data = formInp.data || {};
         this.options = formInp.options || {};
+        // this.options.status = formInp
     }
 
     blocktype = 'none'
@@ -111,8 +118,9 @@ class Outblock_data extends Block {
 <span data-block-data='manager'>${this.data.manager || ''}</span></legend>
 <span data-block-data='id'>${this.data.id || ''}</span>
 <span data-block-data='summ'>${this.data.summ || ''}</span><span>руб.</span>
+<span data-block-data='date'>${this.data.date || ''}</span>
 </fieldset> 
-<span data-block-data='date'>${this.data.date || ''}</span>`
+`
     }
 
     get block() {
@@ -202,32 +210,6 @@ class BlockPreview {
 
 
 
-class BlockFactory {
-    constructor() {}
-
-    static list = {
-        data: Outblock_data,
-        options: Outblock_options,
-        control: Outblock_control
-    }
-
-    get UIdata() {
-        const {
-            data,
-            options
-        } = getFormDataInputs()
-        return {
-            data,
-            options
-        }
-    }
-
-    create(type) {
-        if (type === 'control') return new BlockFactory.list.control
-        else return new BlockFactory.list[type](getFormDataInputs())
-    }
-
-}
 
 class BlockDataBase {
     constructor() {
@@ -236,8 +218,11 @@ class BlockDataBase {
     }
 
     add(block) {
+        // const poolId = (id, Array) => Array.from(id).join('').slice(0, Array.length - 4)
         this.pool.push(block)
-        console.log('added', block, 'size:', this.pool.length);
+        block.poolIndex = this.pool.indexOf(block);
+        // block.dogId = poolId
+        console.log('added', block, 'pool size:', this.pool.length);
 
         return
     }
@@ -322,8 +307,12 @@ function makeBlock(blocks = []) {
 }
 
 class OutBlockBuilder extends Block {
-    constructor({ data, options }) {
-        super(data, options)
+    constructor({
+        data,
+        options
+    }) {
+        super(data, options);
+
     }
     static list = {
         data: Outblock_data,
@@ -335,24 +324,28 @@ class OutBlockBuilder extends Block {
         const control = new Outblock_control().block;
         const options = new Outblock_options(data).block;
         const datablock = new Outblock_data(data).block;
+
         elem.classList.add('out_block');
         elem.oncontextmenu = (event) => {
             if (event.altKey) elem.remove()
         };
+
         elem.addEventListener('click', event => {
             const currentTarget = event.currentTarget;
-            const form = currentTarget.querySelector('form');
+            const control_bl = currentTarget.querySelector('.block_control');
             const blockbtn = currentTarget.querySelector('input[type=button]');
             blockbtn.onclick = () => {
                 currentTarget.remove();
                 bdb.remove(data.data.id)
-                    // updateActiveSessionBlocks()
             };
-            isDone(form);
-            if (event.target.matches('input[type=checkbox]')) {
-                this.options[event.target.name] = (event.target.checked) ? true : false
-            }
+            isDone(control_bl);
+            // if (event.target.matches('input[type=checkbox]')) {
+            //     this.status.push(event.target.name)
+            // }
+
         }, true);
+
+
         elem.insertAdjacentElement('afterbegin', control);
         elem.insertAdjacentElement('afterbegin', options);
         elem.insertAdjacentElement('afterbegin', datablock);

@@ -59,13 +59,13 @@
                     <input type="button" name="inputs" value="Добавить" id="addbtn">
                 </form>
                 <legend name="inputs"><span>ДОБАВЛЕНИЕ НОВОГО ДОГОВОРА </span>
-                    <span>
+                    <div>
                         <span>Менеджер</span>
-                    <select name="manager" data-get-input="manager" data-restore="manager" data-form-inp="manager">
+                        <select name="manager" data-get-input="manager" data-restore="manager" data-form-inp="manager">
                             <option value="Паша" selected>Роднянский П. Л.</option>
                             <option value="Катя">Нестерова Е. И.</option>
                         </select>
-                    </span>
+                    </div>
                 </legend>
             </fieldset>
         </div>
@@ -73,7 +73,42 @@
         <div class="output" data-id="output" id="out">
         </div>
     </div>
-    <div class="preview_field" id="preview"></div>
+    <div class="preview_field" id="preview">
+        <div class="out_block">
+            <div class="block_data">
+                <fieldset data-form-name="data">
+                    <legend>
+                        <span data-block-data="name">Соколов И. Ю.</span>
+                        <span>ведет:</span>
+                        <span data-block-data="manager">Катя</span></legend>
+                    <span data-block-data="id">21/10/05/04-21П</span>
+                    <span data-block-data="summ">31600</span><span>руб.</span>
+                </fieldset>
+                <span data-block-data="date">2021-10-22</span>
+            </div>
+            <div class="block_options">
+                <div>цветной</div>
+                <div>жалюзи</div>
+                <div>арки</div>
+                <div>кристаллит</div>
+                <div>двери</div>
+                <div>стекло</div>
+                <div>переплет</div>
+            </div>
+            <div class="block_control">
+                <fieldset>
+                    <form data-form-name="control">
+                        <input type="checkbox" name="prov" data-check="prov"><code>Check</code>
+                        <input type="checkbox" name="correct" data-check="correct"><code>Correct</code>
+                        <input type="checkbox" name="disp" data-check="disp"><code>Disp accept</code>
+
+                        <input type="button" value="DONE!" disabled="">
+                    </form>
+                    <legend><span>Контроль:</span> <span data-getvalue="control"></span></legend>
+                </fieldset>
+            </div>
+        </div>
+    </div>
     <div class="ls elem_hide" id="showLS"></div>
 </body>
 

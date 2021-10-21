@@ -59,16 +59,15 @@ function getActiveSessionFromLocalStorage() {
 }
 
 function restoreForm() {
-    const {
-        data,
-        options
-    } = loadLastInputsFromLS();
+    const { data } = loadLastInputsFromLS();
     const restoreElems = Array.from(document.querySelectorAll('[data-restore]'));
     restoreElems.map(element => {
         const key = element.dataset.restore;
         // spylog(`${key}: ${data[key]}`)
-        if (key === 'manager') element.value = data[key]
-        element.value = data[key];
+        if (key === 'date') {
+            element.value = dateReverse(data[key])
+
+        } else element.value = data[key]
     })
 }
 
