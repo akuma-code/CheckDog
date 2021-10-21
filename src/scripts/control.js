@@ -5,10 +5,10 @@ const $ADDbtn = document.querySelector('#addbtn'),
 //@ts-ignore
 $ADDbtn.addEventListener('click', () => {
 
-    bdb.fastSave;
     const newBlock = (block) => new OutBlockBuilder().makeOutBlock(block);
     const out = new OutBlockBuilder().makeOutBlock(new UIVals().update)
     bdb.add(new UIVals().update)
+    bdb.fastSave;
 
     localStorage.setItem('lastInputs', JSON.stringify(_data.update))
     document.querySelector('#out').insertAdjacentElement("beforeend", newBlock(bdb.pool[bdb.pool.length - 1]))

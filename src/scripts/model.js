@@ -26,7 +26,10 @@ class UIVals {
                 form[input] = elem.value
             };
             if (elem.type == 'date') form[input] = dateReverse(elem.value);
-            if (elem.name === 'manager') form[input] = elem.value
+            if (elem.name === 'master') {
+                form[input] = elem.value;
+                form.obs = getCorrectorUser(elem.value)
+            }
         });
 
         $optionsElements.forEach(elem => {
