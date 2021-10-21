@@ -28,18 +28,24 @@
         height: max-content;
     }
     
-    fieldset[data-form-name=options]>div {
-        border: 1px solid #000;
-    }
-    
     .block_options {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        align-items: stretch;
-        width: 170px;
-        height: 60px;
+        align-items: center;
+        max-width: 200px;
+        height: 80px;
         gap: 5px;
+        justify-content: space-between;
+        align-content: center;
+    }
+    
+    .block_options__elem {
+        font-size: .9rem;
+        border: 1px inset rgb(187, 76, 56);
+        box-sizing: content-box;
+        padding: 0px 2px;
+        margin: 0px 1px;
     }
     
     .form_options:hover {
@@ -152,8 +158,8 @@
     
     .out_block {
         display: flex;
-        width: 98%;
-        height: 65px;
+        width: 100%;
+        height: 80px;
         background: rgb(54, 54, 54);
         color: beige;
         flex-direction: row;
@@ -168,20 +174,10 @@
         align-items: center;
         justify-content: flex-start;
         gap: 15px;
+        font-size: 15px;
     }
     
-    .block_data span {
-        display: flexbox;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-items: center;
-        justify-content: flex-start;
-        font-size: 20px;
-        /* outline: 1px solid beige; */
-        padding: 4px;
-        /* border-left: 1px solid rgb(255, 255, 255); */
-        /* border-right: 1px solid rgb(255, 255, 255); */
-    }
+    .block_data span {}
     
     .block_check>input[type='button'] {
         margin-left: 20px;

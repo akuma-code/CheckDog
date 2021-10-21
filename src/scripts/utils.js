@@ -1,57 +1,24 @@
+function table(args) {
+    return console.table.call(this, args)
+}
+
 function getCorrectorUser(user) {
     const [user1, user2] = ['Паша', "Катя"]
     const result = (user === user1) ? user2 : user1;
     return result
-
 }
 
-function dogCounter(startNumber = 0) {
-    let counter = startNumber;
-    return function() {
-        return counter++
-    }
+const dateReverse = (value) => Array.from(value).join('').split('-').reverse().join('-');
 
-}
 
-function getVals() {
-    const values = {
-        options: {},
-    };
-    const elems = Array.from(document.querySelectorAll('[data-form-inp]'));
-    const props = Array.from(document.querySelector('fieldset.form_options').elements) || [];
-    props.map(elem => {
-        if (elem.checked) {
-            // values.options.push(elem.labels[0].textContent)
-            //! пока отключу, чтобы хранилище не засирать переменными
-            values.options[elem.name] = true
-        }
-    })
-    elems.map(elem => {
-        let inp = elem.dataset.formInp;
-        values[inp] = elem.value
-    });
-    return values
-}
-
-function getDogsFromLocalStorage() {
-    return JSON.parse(localStorage.getItem('dogs') || '[]')
-}
-
-function getFormFromLocalStorage() {
-    return JSON.parse(localStorage.getItem('form') || '[]')
-}
-/**@returns data,options   */
+/**@returns data,options  saved at localStorage */
 function loadLastInputsFromLS() {
     const saved = JSON.parse(localStorage.getItem('lastInputs') || '{}');
     const {
         data,
         options
     } = saved
-    return {
-        data,
-        options
-    }
-
+    return saved
 }
 
 function getActiveSessionFromLocalStorage() {
@@ -59,15 +26,14 @@ function getActiveSessionFromLocalStorage() {
 }
 
 function restoreForm() {
-    const { data } = loadLastInputsFromLS();
+    const {
+        data
+    } = loadLastInputsFromLS();
     const restoreElems = Array.from(document.querySelectorAll('[data-restore]'));
     restoreElems.map(element => {
         const key = element.dataset.restore;
-        // spylog(`${key}: ${data[key]}`)
-        if (key === 'date') {
-            element.value = dateReverse(data[key])
-
-        } else element.value = data[key]
+        if (key === 'date') element.value = dateReverse(data[key])
+        else element.value = data[key]
     })
 }
 
@@ -88,47 +54,6 @@ function isDone(element) {
 }
 
 
-function getOutputBlocks() {
-    const output = document.getElementById('out');
-    const divList = Array.from(output.getElementsByClassName('out_block'));
-
-    let result = [];
-    divList.map(elem => {
-        // console.log(elem);
-        result.push(getBlockVals(elem));
-
-    });
-    return result
-}
-
-function updateActiveSessionBlocks() {
-    const active = getOutputBlocks();
-    localStorage.setItem('ActiveSessionBlocks', JSON.stringify(active))
-}
-
-function getBlockVals(block = {}) {
-
-    const blockDataValues = {};
-
-    const checkboxes = Array.from(block.querySelectorAll('input[type=checkbox]')) || [];
-    checkboxes.forEach(elem => {
-        if (elem.checked) blockDataValues[elem.name] = true
-    });
-
-    const radio = Array.from(block.querySelectorAll('input[type=radio]')) || [];
-    radio.forEach(elem => {
-        if (elem.checked) blockDataValues[elem.name] = true
-    });
-
-    const valueElems = Array.from(block.querySelectorAll('[data-getvalue]')) || [];
-    for (let elem of valueElems) {
-
-        const key = elem.dataset.getvalue;
-        blockDataValues[key] = elem.textContent
-    };
-    // console.log(data);
-    return blockDataValues
-}
 
 function spylog(args) {
     return console.log.call(this, args)

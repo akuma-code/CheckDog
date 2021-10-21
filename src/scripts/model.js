@@ -1,44 +1,3 @@
-/**выдает данные с формы {data, options}
- */
-function getFormDataInputs2() {
-    /**данные для блока данных */
-    const form = {
-        checkedID: {}
-    };
-    /**опции для блока данных */
-    const options = {
-        checked: [],
-
-    };
-    /**елементы с формы с тегом [data-form-inp] */
-    const $formElements = Array.from(document.querySelectorAll('[data-get-input]')) || [];
-    /**елементы с формы с тегом fieldset.form_options */
-    const $optionsElements = Array.from(document.querySelector('fieldset.form_options').elements) || [];
-
-    $formElements.forEach(elem => {
-        let input = elem.dataset.getInput;
-        if (elem.type == 'text' || elem.type == 'date') {
-            form[input] = elem.value
-        };
-        if (elem.name === 'manager') form[input] = elem.value
-    });
-
-    $optionsElements.forEach(elem => {
-        (elem.name === 'color') ? form.checkedID[elem.id] = elem.checked:
-            form.checkedID[elem.name] = elem.checked
-        if (elem.checked) options.checked.push(elem.labels[0].textContent)
-    });
-
-
-    // debugger
-    return {
-        data: form,
-        options: options
-    }
-}
-
-const dateReverse = (value) => Array.from(value).join('').split('-').reverse().join('-');
-
 class UIVals {
     constructor() {
         this.update
@@ -52,7 +11,7 @@ class UIVals {
         /**опции для блока данных */
         const options = {
             checked: [],
-            status: []
+            status: {}
 
         };
 
@@ -70,7 +29,6 @@ class UIVals {
             if (elem.name === 'manager') form[input] = elem.value
         });
 
-        const poolId = Array.from(form.id).join('').slice(0, form.id.length - 4)
         $optionsElements.forEach(elem => {
             (elem.name === 'color') ? form.checkedID[elem.id] = elem.checked:
                 form.checkedID[elem.name] = elem.checked
@@ -78,7 +36,7 @@ class UIVals {
         });
         return {
             data: form,
-            dogId: poolId,
+            id: form.id,
             options: options
         }
     };
@@ -92,13 +50,13 @@ const _data = new UIVals
 
 /** Базовый Блок */
 class Block {
-    constructor(formInp = _data.update) {
-        this.data = formInp.data || {};
-        this.options = formInp.options || {};
+    constructor(formInp = {}) {
+        this.data = formInp.data;
+        this.options = formInp.options;
         // this.options.status = formInp
+        this.blocktype = 'none'
     }
 
-    blocktype = 'none'
     toHTML() {
         return `Block.toHTML not defined!!`
     }
@@ -113,7 +71,7 @@ class Outblock_data extends Block {
     toHTML() {
         return `<fieldset data-form-name='data'>
 <legend>
-<span data-block-data='name' >${this.data.name ||''}</span>
+<span data-block-data='name'># ${this.data.bIndex+1 || 'NEW'}) ${this.data.name ||''}</span>
 <span>ведет:</span>
 <span data-block-data='manager'>${this.data.manager || ''}</span></legend>
 <span data-block-data='id'>${this.data.id || ''}</span>
@@ -140,7 +98,7 @@ class Outblock_options extends Block {
 
     toHTML() {
         let list = '';
-        this.options.checked.map(elem => list += `<div>${elem}</div>`)
+        this.options.checked.map(elem => list += `<div class='block_options__elem'">${elem}</div>`)
         return list
     }
 
@@ -148,42 +106,63 @@ class Outblock_options extends Block {
         const div = document.createElement('div');
         const content = this.toHTML()
         div.classList.add('block_options');
+
         div.innerHTML = content;
+
+
         return div
     }
 }
 /**подБлок контроля */
-class Outblock_control extends Block {
-    constructor() {
-        super()
-        this.blocktype = 'block_control'
+class Outblock_control {
+    constructor(data) {
+        // super(data)
+        this.data = data
+        this.master = this.data.manager
+        this.observer = getCorrectorUser(this.master) || ''
+            // this.blocktype = 'block_control';
     }
 
     toHTML() {
-        const checkblock = `<fieldset>
+        const state = this.data.options.status
+        const {
+            prov,
+            correct,
+            disp
+        } = state;
+
+        const checkblock = (
+            prov = false,
+            correct = false,
+            disp = false
+        ) => `<fieldset>
                         <form data-form-name='control'>
-                            <input type='checkbox' name="prov" data-check='prov'></input>
+                            <input type='checkbox' name="prov" data-check='prov' ${(prov) ? 'checked' : ''}></input>
                             <label for="prov">проверка</label>
 
-                            <input type='checkbox' name="correct" data-check='correct'></input>
+                            <input type='checkbox' name="correct" data-check='correct' ${(correct) ? 'checked' : ''}></input>
                             <label for="correct">корректировка</label>
 
-                            <input type='checkbox' name="disp" data-check='disp'></input>
+                            <input type='checkbox' name="disp" data-check='disp' ${(disp) ? 'checked' : ''}></input>
                             <label for="disp">диспетчерская</label>
 
                             <input type="button" value="DONE!" disabled>
                         </form>
-                        <legend><span>Контроль:</span> <span data-getvalue="control"></span></legend>
+                        <legend><span>Контроль:</span> <span data-getvalue="control">${this.observer}</span></legend>
                     </fieldset>`;
 
-        return checkblock
+        return checkblock(
+            prov,
+            correct,
+            disp
+        )
     }
 
     get block() {
         const div = document.createElement('div');
         const content = this.toHTML()
         div.classList.add('block_control');
-        div.innerHTML = content;
+        div.innerHTML += content;
         return div
 
 
@@ -213,47 +192,66 @@ class BlockPreview {
 
 class BlockDataBase {
     constructor() {
-        this.pool = []
+        this.pool = [];
+        this.pool.length = 0
             // this.loadPool()
     }
 
     add(block) {
-        // const poolId = (id, Array) => Array.from(id).join('').slice(0, Array.length - 4)
         this.pool.push(block)
-        block.poolIndex = this.pool.indexOf(block);
-        // block.dogId = poolId
+            // block.data.bIndex = this.pool.indexOf(block);
+
         console.log('added', block, 'pool size:', this.pool.length);
 
-        return
+        return block
     }
 
     get clear() {
         // localStorage.removeItem('savedblocks')
         return this.pool.length = 0
     }
-    get save() {
-        const lsb = JSON.parse(localStorage.getItem('savedblocks')) || [];
-        lsb.push(this.pool);
+    get saveQuit() {
+        // const getSavedDogs = JSON.parse(localStorage.getItem('savedblocks')) || [];
+        // getSavedDogs.push(this.pool);
+        this.pool.map((elem, index) => {
+            elem.data.bIndex = index
+        })
         localStorage.setItem('savedblocks', JSON.stringify(this.pool))
-        this.clear
+        this.pool.length = 0
+    };
+
+    get fastSave() {
+        return localStorage.setItem('savedblocks', JSON.stringify(this.pool))
+    }
+    get load() {
+        const saved = JSON.parse(localStorage.getItem('savedblocks')) || [];
+        return saved
     }
     loadPool() {
-        const lsb = JSON.parse(localStorage.getItem('savedblocks'));
-        if (!localStorage.getItem('savedblocks')) return this.pool
-        const out = (data) => new OutBlockBuilder(data).makeOutBlock(data)
+        const pool = this.load
+        if (pool.length == 0) console.log('All dogs was killed...');
 
-        this.pool = lsb
-        lsb.forEach(item => document.querySelector('#out').insertAdjacentElement("afterbegin", out(item)))
-        return this.pool.length
+        function outblock(block) {
+            const blockD = new OutBlockBuilder().makeOutBlock(block)
+            return document.querySelector('#out').insertAdjacentElement("beforeend", blockD)
+        };
+
+        pool.map(item => outblock(item))
+        this.pool = pool
+        return
     }
 
-    findInd(searchItem) {
+    getIdIndex(searchItem) {
         return this.pool.findIndex(item => searchItem === item.data.id)
+    }
+
+    findIndex(index) {
+        return this.pool[index]
     }
 
     remove(blockID) {
         const temp = [];
-        const removeIndex = this.findInd(blockID);
+        const removeIndex = this.getIdIndex(blockID);
         this.pool.forEach((item, index) => {
             if (index !== removeIndex) temp.push(item)
             else {
@@ -268,89 +266,64 @@ class BlockDataBase {
 }
 
 
-
-function makeBlock(blocks = []) {
-
-
-
-    const elem = document.createElement('div');
-    const [data_block, options_block, control_block] = blocks
-    const checked = {};
-
-    elem.classList.add('out_block');
-
-    elem.oncontextmenu = (event) => {
-        // event.preventDefault();
-        if (event.altKey) elem.remove()
-    };
-
-    elem.addEventListener('click', event => {
-        const currentTarget = event.currentTarget;
-        const form = currentTarget.querySelector('form');
-        const blockbtn = currentTarget.querySelector('input[type=button]');
-        blockbtn.onclick = () => {
-            currentTarget.remove();
-            // updateActiveSessionBlocks()
-        };
-        isDone(form);
-        if (event.target.matches('input[type=checkbox]')) {
-            checked[event.target.name] = (event.target.checked) ? true : false
-                // event.target.closest('div.block_check').dataset.checked = JSON.stringify(checked)
-        }
-
-    }, true)
-    elem.insertAdjacentElement('afterbegin', options_block)
-    elem.insertAdjacentElement('afterbegin', data_block);
-    elem.insertAdjacentElement('beforeend', control_block);
-
-    return elem
-}
-
-class OutBlockBuilder extends Block {
-    constructor({
-        data,
-        options
-    }) {
-        super(data, options);
-
+class OutBlockBuilder {
+    constructor() {
+        this.makeOutBlock
     }
-    static list = {
-        data: Outblock_data,
-        options: Outblock_options,
-        control: Outblock_control
-    }
-    makeOutBlock(data) {
+
+    makeOutBlock(block) {
         const elem = document.createElement('div');
-        const control = new Outblock_control().block;
-        const options = new Outblock_options(data).block;
-        const datablock = new Outblock_data(data).block;
+        const control = new Outblock_control(block).block;
+        const optionsblock = new Outblock_options(block).block;
+        const datablock = new Outblock_data(block).block;
+        const status = block.options.status || {};
 
         elem.classList.add('out_block');
         elem.oncontextmenu = (event) => {
             if (event.altKey) elem.remove()
+            if (event.ctrlKey) {
+                event.currentTarget.remove()
+                bdb.remove(block.data.id)
+            }
+
         };
 
         elem.addEventListener('click', event => {
             const currentTarget = event.currentTarget;
-            const control_bl = currentTarget.querySelector('.block_control');
+            const control_bl = currentTarget.querySelector('[data-form-name=control]');
             const blockbtn = currentTarget.querySelector('input[type=button]');
+            isDone(control_bl);
+
             blockbtn.onclick = () => {
                 currentTarget.remove();
-                bdb.remove(data.data.id)
+                bdb.remove(block.data.id)
             };
-            isDone(control_bl);
-            // if (event.target.matches('input[type=checkbox]')) {
-            //     this.status.push(event.target.name)
-            // }
+
+            //! check control status
+            if (event.target.matches('input[type=checkbox]')) {
+                status[event.target.name] = (event.target.checked) ? true : false;
+                // data.options.status[event.target.name] = (event.target.checked) ? true : false
+                block.options.status = status
+                    // console.log(block.options.status); 
+            }
+            // elem.setAttribute('status', JSON.stringify(status));
+            bdb.fastSave
 
         }, true);
 
-
-        elem.insertAdjacentElement('afterbegin', control);
-        elem.insertAdjacentElement('afterbegin', options);
-        elem.insertAdjacentElement('afterbegin', datablock);
+        [datablock, optionsblock, control].forEach(item => elem.insertAdjacentElement('beforeend', item))
+            // elem.insertAdjacentElement('afterbegin', control);
+            // elem.insertAdjacentElement('afterbegin', optionsblock);
+            // elem.insertAdjacentElement('afterbegin', datablock);
         return elem
     }
 };
+
+function getDogsStatus() {
+    const $out = document.querySelector('#out');
+    const elems = Array.from($out.querySelectorAll('[status]'))
+        // spylog(elems)
+        // elems.forEach()
+}
 
 const bdb = new BlockDataBase();
