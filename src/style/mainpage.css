@@ -29,6 +29,10 @@
         height: max-content;
     }
     
+    .maxdl {
+        background-color: #88b684;
+    }
+    
     .form_options::before {
         content: url('../assets/arrow_2.svg');
         position: absolute;

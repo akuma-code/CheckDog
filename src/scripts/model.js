@@ -120,7 +120,7 @@ class Outblock_options extends Block {
         const times = getDeadline(this.options.checked)
         const max = times[0].name
         this.options.checked.map(elem => {
-            if (elem === max) list += `<div class='block_options__elem' style='background-color: red'">${elem}</div>`
+            if (elem === max) list += `<div class='block_options__elem maxdl' ">${elem}</div>`
             else list += `<div class='block_options__elem'">${elem}</div>`
         })
         return list
