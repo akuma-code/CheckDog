@@ -1,3 +1,31 @@
+function getDeadline(options = []) {
+    const deadline = {
+        'белый': 8,
+        "цветной": 14,
+        "спектраль": 21,
+        "кристаллит": 14,
+        "арки": 18,
+        "закалка": 30,
+        "двери": 12,
+        "переплет": 14,
+    }
+    const getMax = (array) => array.sort(((a, b) => b - a))[0]
+    const test = ['цветной', "арки", "закалка"]
+
+    function sortOPT(arr = []) {
+        const result = [];
+        arr.map(item => {
+            const time = deadline[item];
+            const name = item;
+            result.push({ name, time });
+        })
+        return result.sort((a, b) => b.time - a.time)
+    }
+    // spylog(sortOPT(test)[0].name)
+    return sortOPT(options)
+}
+
+
 function table(args) {
     return console.table.call(this, args)
 }

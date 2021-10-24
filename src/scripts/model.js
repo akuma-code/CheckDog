@@ -56,12 +56,28 @@ class Block {
     constructor(formInp = {}) {
         this.data = formInp.data;
         this.options = formInp.options;
-        // this.options.status = formInp
         this.blocktype = 'none'
     }
 
     toHTML() {
         return `Block.toHTML not defined!!`
+    }
+
+    get block() {
+        let cls = '';
+        const div = document.createElement('div');
+        const content = this.toHTML()
+        div.innerHTML = content;
+        if (this.blocktype === 'form_inputs') {
+            cls = 'block_data';
+            div.classList.add(cls);
+        };
+        if (this.blocktype === 'form_options') {
+            cls = 'block_options';
+            div.classList.add(cls);
+
+        };
+        return div
     }
 }
 /**подБлок с данными */
@@ -74,9 +90,9 @@ class Outblock_data extends Block {
     toHTML() {
         return `<fieldset data-form-name='data'>
 <legend>
-<span data-block-data='name'># ${this.data.bIndex+1 || 'NEW'}) ${this.data.name ||''}</span>
+<span data-block-data='name'>#${this.data.bIndex+1 || 'NEW'}) ${this.data.name ||''}</span>
 <span>ведет:</span>
-<span data-block-data='manager'>${this.data.manager || ''}</span></legend>
+<span data-block-data='master'>${this.data.master || ''}</span></legend>
 <span data-block-data='id'>${this.data.id || ''}</span>
 <span data-block-data='summ'>${this.data.summ || ''}</span><span>руб.</span>
 <span data-block-data='date'>${this.data.date || ''}</span>
@@ -84,13 +100,13 @@ class Outblock_data extends Block {
 `
     }
 
-    get block() {
-        const div = document.createElement('div');
-        const content = this.toHTML()
-        div.classList.add('block_data');
-        div.innerHTML = content;
-        return div
-    }
+    // get block() {
+    //     const div = document.createElement('div');
+    //     const content = this.toHTML()
+    //     div.classList.add('block_data');
+    //     div.innerHTML = content;
+    //     return div
+    // }
 };
 /**подБлок с опциями */
 class Outblock_options extends Block {
@@ -101,63 +117,70 @@ class Outblock_options extends Block {
 
     toHTML() {
         let list = '';
-        this.options.checked.map(elem => list += `<div class='block_options__elem'">${elem}</div>`)
+        const times = getDeadline(this.options.checked)
+        const max = times[0].name
+        this.options.checked.map(elem => {
+            if (elem === max) list += `<div class='block_options__elem' style='background-color: red'">${elem}</div>`
+            else list += `<div class='block_options__elem'">${elem}</div>`
+        })
         return list
     }
 
-    get block() {
-        const div = document.createElement('div');
-        const content = this.toHTML()
-        div.classList.add('block_options');
-
-        div.innerHTML = content;
-
-
-        return div
-    }
+    //     get block() {
+    //         const div = document.createElement('div');
+    //         const content = this.toHTML()
+    //         div.classList.add('block_options');
+    // 
+    //         div.innerHTML = content;
+    // 
+    // 
+    //         return div
+    //     }
 }
 /**подБлок контроля */
 class Outblock_control {
     constructor(data) {
         // super(data)
         this.data = data
-        this.master = this.data.manager
-        this.observer = getCorrectorUser(this.master) || ''
+            // this.master = this.data.master
+        this.observer = getCorrectorUser(this.data.master) || ''
             // this.blocktype = 'block_control';
     }
 
     toHTML() {
         const state = this.data.options.status
+        const obs = this.data.data.obs
         const {
             prov,
             correct,
             disp
         } = state;
-
         const checkblock = (
             prov = false,
             correct = false,
-            disp = false
+            disp = false,
+            obs
         ) => `<fieldset>
                         <form data-form-name='control'>
+                            <label>
                             <input type='checkbox' name="prov" data-check='prov' ${(prov) ? 'checked' : ''}></input>
-                            <label for="prov">проверка</label>
+                            проверка</label>
 
-                            <input type='checkbox' name="correct" data-check='correct' ${(correct) ? 'checked' : ''}></input>
-                            <label for="correct">корректировка</label>
+                            <label><input type='checkbox' name="correct" data-check='correct' ${(correct) ? 'checked' : ''}></input>
+                            корректировка</label>
 
-                            <input type='checkbox' name="disp" data-check='disp' ${(disp) ? 'checked' : ''}></input>
-                            <label for="disp">диспетчерская</label>
+                            <label><input type='checkbox' name="disp" data-check='disp' ${(disp) ? 'checked' : ''}></input>
+                            диспетчерская</label>
 
                             <input type="button" value="DONE!" disabled>
                         </form>
-                        <legend><span>Контроль:</span> <span data-getvalue="control">${this.observer}</span></legend>
+                        <legend><span>Контроль:</span> <span data-getvalue="control">${obs}</span></legend>
                     </fieldset>`;
 
         return checkblock(
             prov,
             correct,
-            disp
+            disp, obs
         )
     }
 
