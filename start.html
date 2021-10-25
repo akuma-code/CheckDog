@@ -25,6 +25,14 @@
                         <input type="text" name="id" data-get-input="id" data-form-inp="id" placeholder="номер договора" data-restore="id" tabindex="2">
                         <legend>Номер договора</legend>
                     </fieldset>
+                    <fieldset>
+                        <input type="date" name="date" data-get-input="date" data-restore="date" data-form-inp="date" placeholder="дата изготовления" tabindex="4">
+                        <legend>Дата готовности</legend>
+                    </fieldset>
+                    <fieldset class="form_summ">
+                        <input type="text" name="summ" data-get-input="summ" data-form-inp="summ" placeholder="стоимость" data-restore="summ" tabindex="3">
+                        <legend>Цена, руб.</legend>
+                    </fieldset>
                     <fieldset class="form_options" data-get-input="options" data-restore="options">
                         <legend>Опции</legend>
                         <ul class="droplist color" data-restore="options">
@@ -34,7 +42,6 @@
                             <li><input type="radio" name="color" id="color-spectr"><label for="color-spectr">спектраль</label></li>
                         </ul>
                         <ul class="droplist" data-restore="options">
-
                             <li><input type="checkbox" name="arc" id="opt-arc"><label for="opt-arc">арки</label></li>
                             <li><input type="checkbox" name="crist" id="opt-crist"><label for="opt-crist">кристаллит</label>
                             </li>
@@ -44,14 +51,8 @@
                             <li><input type="checkbox" name="perep" id="opt-perep"><label for="opt-perep">переплет</label></li>
                         </ul>
                     </fieldset>
-                    <fieldset class="form_summ">
-                        <input type="text" name="summ" data-get-input="summ" data-form-inp="summ" placeholder="стоимость" data-restore="summ" tabindex="3">
-                        <legend>Цена, руб.</legend>
-                    </fieldset>
-                    <fieldset>
-                        <input type="date" name="date" data-get-input="date" data-restore="date" data-form-inp="date" placeholder="дата изготовления" tabindex="4">
-                        <legend>Дата готовности</legend>
-                    </fieldset>
+
+
 
 
                     <input type="button" name="inputs" value="Добавить" id="addbtn">
@@ -72,45 +73,7 @@
         </div>
     </div>
     <div class="preview_field" id="preview">
-        <div class="out_block">
-            <div class="block_data">
-                <fieldset data-form-name="data">
-                    <legend>
-                        <span data-block-data="name"># 2) Соколов И. Ю.</span>
-                        <span>ведет:</span>
-                        <span data-block-data="manager">Катя</span></legend>
-                    <span data-block-data="id">21/09/21/05-21П</span>
-                    <span data-block-data="summ">31600</span><span>руб.</span>
-                    <span data-block-data="date">24-11-2021</span>
-                </fieldset>
-            </div>
-            <div class="block_options">
-                <div class="block_options__elem">спектраль</div>
-                <div class="block_options__elem ">жалюзи</div>
-                <div class="block_options__elem">арки</div>
-                <div class="block_options__elem ">кристаллит</div>
-                <div class="block_options__elem">двери</div>
-                <div class="block_options__elem ">закалка</div>
-                <div class="block_options__elem">переплет</div>
-            </div>
-            <div class="block_control ">
-                <fieldset>
-                    <form data-form-name="control ">
-                        <input type="checkbox" name="prov" data-check="prov">
-                        <label for="prov ">проверка</label>
 
-                        <input type="checkbox" name="correct" data-check="correct">
-                        <label for="correct ">корректировка</label>
-
-                        <input type="checkbox" name="disp" data-check="disp">
-                        <label for="disp ">диспетчерская</label>
-
-                        <input type="button" value="DONE " disabled=" ">
-                    </form>
-                    <legend><span>Контроль:</span> <span data-getvalue="control ">Паша</span></legend>
-                </fieldset>
-            </div>
-        </div>
     </div>
     <div class="ls elem_hide " id="showLS "></div>
 </body>
