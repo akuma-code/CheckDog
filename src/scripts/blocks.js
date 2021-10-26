@@ -136,7 +136,7 @@ class BlockDataBase {
 
 /**подБлок с данными */
 class Outblock_data extends Block {
-    constructor(data) {
+    constructor(data = Block) {
         super(data)
         this.blocktype = 'form_inputs'
     }
