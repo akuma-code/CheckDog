@@ -6,13 +6,15 @@ const scripts = [{
         src: './src/scripts/utils.js'
     },
     {
-        id: 'model',
-        src: './src/scripts/model.js'
-    },
-    {
         id: 'blocks',
         src: './src/scripts/blocks.js'
     },
+
+    {
+        id: 'model',
+        src: './src/scripts/model.js'
+    },
+
     {
         id: 'controller',
         src: './src/scripts/control.js'

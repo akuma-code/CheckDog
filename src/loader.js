@@ -387,3 +387,53 @@ class OutputContainer {
 }
 
 const OC = new OutputContainer;
+
+class BlockMaker extends BlockDog {
+    constructor() {
+
+    }
+
+    OutBlock(block) {
+        const blockDIV = document.createElement('div');
+        blockDIV.classList.add('out_block');
+
+        blockDIV.oncontextmenu = event => this.rClickHandler(event)
+
+        blockDIV.addEventListener('click', event => this.clickHandler(event), true)
+
+        const out = new BlockDog(block).blocks
+        out.forEach(item => blockDIV.insertAdjacentElement('beforeend', item))
+
+        return blockDIV
+    };
+
+    rClickHandler(event = Event) {
+        if (event.altKey) event.currentTarget.remove()
+        if (event.ctrlKey) {
+            event.currentTarget.remove()
+            this.remove(this.data.id)
+        }
+    };
+
+    clickHandler(event = Event) {
+        const status = this.data.options.status
+        const currentTarget = event.currentTarget;
+        const control_bl = currentTarget.querySelector('[data-form-name=control]');
+        const blockbtn = currentTarget.querySelector('input[type=button]');
+        isDone(control_bl);
+
+        blockbtn.onclick = () => {
+            currentTarget.remove();
+            bdb.remove(block.data.id)
+        };
+
+        //! check control status
+        if (event.target.matches('input[type=checkbox]')) {
+            status[event.target.name] = (event.target.checked) ? true : false;
+            this.data.options.status = status
+        }
+        bdb.fastSave
+    }
+};
+
+const testdog = bdb.pool

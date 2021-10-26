@@ -1,17 +1,15 @@
-//@ts-check
 const $ADDbtn = document.querySelector('#addbtn'),
     $out = document.querySelector('#out');
 
 //@ts-ignore
 $ADDbtn.addEventListener('click', () => {
-
+    const newValues = new UIVals()
     const newBlock = (block) => new OutBlockBuilder().makeOutBlock(block);
-    const out = new OutBlockBuilder().makeOutBlock(new UIVals().update)
-    bdb.add(new UIVals().update)
-    bdb.fastSave;
+    bdb.add(newValues)
+    bdb.quickSave;
 
-    localStorage.setItem('lastInputs', JSON.stringify(_data.update))
-    document.querySelector('#out').insertAdjacentElement("beforeend", newBlock(bdb.pool[bdb.pool.length - 1]))
+    localStorage.setItem('lastInputs', JSON.stringify(newValues))
+    document.querySelector('#out').insertAdjacentElement("beforeend", newBlock(newValues))
 
 });
 
