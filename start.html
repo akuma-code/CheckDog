@@ -13,50 +13,73 @@
     <!--TODO:: сделать сортировку по ведущему манеджеру-->
     <div class="app_cont">
         <!-- !inputs -->
-        <div class="form_cont">
-            <fieldset>
+        <div class="input_main_form">
+            <fieldset class="form_field">
                 <form name="inputs" class="form_inp" id="Dogs_form">
-
-                    <fieldset>
-                        <input type="text" name="name" data-get-input="name" data-form-inp="name" placeholder="заказчик" data-restore="name" tabindex="1">
-                        <legend>ФИО Заказчика</legend>
-                    </fieldset>
-                    <fieldset>
-                        <input type="text" name="id" data-get-input="id" data-form-inp="id" placeholder="номер договора" data-restore="id" tabindex="2">
-                        <legend>Номер договора</legend>
-                    </fieldset>
-                    <fieldset>
-                        <input type="date" name="date" data-get-input="date" data-restore="date" data-form-inp="date" placeholder="дата изготовления" tabindex="4">
-                        <legend>Дата готовности</legend>
-                    </fieldset>
-                    <fieldset class="form_summ">
-                        <input type="text" name="summ" data-get-input="summ" data-form-inp="summ" placeholder="стоимость" data-restore="summ" tabindex="3">
-                        <legend>Цена, руб.</legend>
-                    </fieldset>
-                    <fieldset class="form_options" data-get-input="options" data-restore="options">
-                        <legend>Опции</legend>
-                        <ul class="droplist color" data-restore="options">
-                            <li><input type="radio" name="color" id="color-white" checked><label for="color-white">белый</label></li>
-                            <li><input type="radio" name="color" id="color-lamin"><label for="color-lamin">цветной</label>
-                            </li>
-                            <li><input type="radio" name="color" id="color-spectr"><label for="color-spectr">спектраль</label></li>
-                        </ul>
-                        <ul class="droplist" data-restore="options">
-                            <li><input type="checkbox" name="arc" id="opt-arc"><label for="opt-arc">арки</label></li>
-                            <li><input type="checkbox" name="crist" id="opt-crist"><label for="opt-crist">кристаллит</label>
-                            </li>
-                            <li><input type="checkbox" name="door" id="opt-door"><label for="opt-door">двери</label>
-                            </li>
-                            <li><input type="checkbox" name="stp" id="opt-stp"><label for="opt-stp">закалка</label></li>
-                            <li><input type="checkbox" name="perep" id="opt-perep"><label for="opt-perep">переплет</label></li>
-                        </ul>
-                    </fieldset>
-
-
-
-
-                    <input type="button" name="inputs" value="Добавить" id="addbtn">
+                    <div class="ga_client">
+                        <fieldset class="input_field">
+                            <input type="text" name="name" data-get-input="name" data-form-inp="name" placeholder="заказчик" data-restore="name" tabindex="1">
+                            <legend>ФИО Заказчика</legend>
+                        </fieldset>
+                    </div>
+                    <div class="ga_id">
+                        <fieldset>
+                            <input type="text" name="id" data-get-input="id" data-form-inp="id" placeholder="номер договора" data-restore="id" tabindex="2">
+                            <legend>Номер договора</legend>
+                        </fieldset>
+                    </div>
+                    <div class="ga_date">
+                        <fieldset>
+                            <input type="date" name="date" data-get-input="date" data-restore="date" data-form-inp="date" placeholder="дата изготовления" tabindex="4">
+                            <legend>Дата готовности</legend>
+                        </fieldset>
+                    </div>
+                    <div class="ga_summ">
+                        <fieldset class="form_summ">
+                            <input type="text" name="summ" data-get-input="summ" data-form-inp="summ" placeholder="стоимость" data-restore="summ" tabindex="3">
+                            <legend>Цена, руб.</legend>
+                        </fieldset>
+                    </div>
+                    <div class="ga_props">
+                        <div>
+                            <label><input type="checkbox" name="plan" data-prop="plan">Схема</label>
+                        </div>
+                        <div><label><input type="checkbox" name="raznos" data-prop="raznos">Разнос</label>
+                        </div>
+                        <div><label><input type="checkbox" name="zhal" data-prop="zhal">Жалюзи</label>
+                        </div>
+                    </div>
+                    <div class="ga_today">Сегодня:</div>
+                    <div class="ga_options">
+                        <fieldset class="form_options" data-get-input="options" data-restore="options">
+                            <legend>Опции</legend>
+                            <ul class="droplist color" data-restore="options">
+                                <li><input type="radio" name="color" id="color-white" checked><label for="color-white">белый</label></li>
+                                <li><input type="radio" name="color" id="color-lamin"><label for="color-lamin">цветной</label></li>
+                                <li><input type="radio" name="color" id="color-spectr"><label for="color-spectr">спектраль</label></li>
+                            </ul>
+                            <ul class="droplist" data-restore="options">
+                                <li><label><input type="checkbox" name="arc" id="opt-arc">арки</label><span>18
+                                        дней</span></li>
+                                <li><label><input type="checkbox" name="crist"
+                                            id="opt-crist">кристаллит</label><span>8-14 дней</span>
+                                </li>
+                                <li><label><input type="checkbox" name="door" id="opt-door">двери</label><span>12
+                                        дней</span>
+                                </li>
+                                <li><label><input type="checkbox" name="stp" id="opt-stp">закалка</label><span>30
+                                        дней</span>
+                                </li>
+                                <li><label><input type="checkbox" name="perep" id="opt-perep">переплет</label><span>14
+                                        дней</span></li>
+                            </ul>
+                        </fieldset>
+                    </div>
+                    <div class="ga_btn">
+                        <input type="button" name="inputs" value="Добавить" id="addbtn" class="ga_btn">
+                    </div>
                 </form>
+
                 <legend name="inputs"><span>ДОБАВЛЕНИЕ НОВОГО ДОГОВОРА </span>
                     <div>
                         <span>Менеджер</span>

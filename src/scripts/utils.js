@@ -38,7 +38,10 @@ class UIVals {
 
     newValues() {
         const form = {
-            checkedID: {}
+            checkedID: {},
+            props: [],
+            obs: '',
+            id: ''
         };
         const options = {
             checked: [],
@@ -48,6 +51,7 @@ class UIVals {
 
         const $formElements = Array.from(document.querySelectorAll('[data-get-input]')) || [];
         const $optionsElements = Array.from(document.querySelector('fieldset.form_options').elements) || [];
+        const $propsElements = Array.from(document.querySelectorAll('[data-prop]')) || [];
 
         $formElements.forEach(elem => {
             let input = elem.dataset.getInput;
@@ -66,6 +70,10 @@ class UIVals {
                 form.checkedID[elem.name] = elem.checked
             if (elem.checked) options.checked.push(elem.labels[0].textContent)
         });
+
+        $propsElements.forEach(elem => {
+            if (elem.checked) form.props.push(elem.labels[0].textContent)
+        })
 
         return {
             data: form,

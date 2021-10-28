@@ -167,8 +167,8 @@ class Outblock_options extends Block {
         const times = getDeadline(this.options.checked)
         const max = times[0].name
         this.options.checked.map(elem => {
-            if (elem === max) list += `<div class='block_options__elem maxdl' ">${elem}</div>`
-            else list += `<div class='block_options__elem'">${elem}</div>`
+            if (elem === max) list += `<div class='block_options__elem maxdl'>${elem}</div>`
+            else list += `<div class='block_options__elem'>${elem}</div>`
         })
         return list
     }
@@ -195,13 +195,13 @@ class Outblock_control {
             disp = false,
             obs
         ) => `<fieldset>
+                <legend><span>Контроль:</span> <span data-getvalue="control">${obs}</span></legend>
                <form data-form-name='control'>
                  <label><input type='checkbox' name="prov" data-check='prov' ${(prov) ? 'checked' : ''}></input>проверка</label>
                  <label><input type='checkbox' name="correct" data-check='correct' ${(correct) ? 'checked' : ''}></input>корректировка</label>
                  <label><input type='checkbox' name="disp" data-check='disp' ${(disp) ? 'checked' : ''}></input>диспетчерская</label>
                  <input type="button" value="DONE!" disabled>
                </form>
-                <legend><span>Контроль:</span> <span data-getvalue="control">${obs}</span></legend>
              </fieldset>`;
 
         return checkblock(

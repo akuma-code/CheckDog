@@ -1,0 +1,64 @@
+.input_main_form {
+    display: flex;
+    width: 1094px;
+    height: 150px;
+    /* border: 3px solid rgb(255, 0, 0); */
+}
+
+.form_inp {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto auto auto;
+    grid-template-rows: 60px 40px;
+    grid-template-areas: "client id date options summ" "props props today options  btn";
+    gap: 5px 10px;
+    width: 1060px;
+    height: 60px;
+    overflow: visible;
+}
+
+.form_field {
+    background-color: rgb(54 54 54);
+    margin-top: 5px;
+}
+
+.ga_client {
+    grid-area: client
+}
+
+.ga_id {
+    grid-area: id;
+}
+
+.ga_date {
+    grid-area: date;
+    width: fit-content;
+}
+
+.ga_options {
+    grid-area: options;
+    height: 45px;
+}
+
+.ga_summ {
+    grid-area: summ;
+}
+
+.ga_props {
+    grid-area: props;
+    display: flex;
+    color: beige;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.ga_today {
+    grid-area: today;
+}
+
+.ga_btn {
+    grid-area: btn;
+    width: 120px;
+    height: 40px;
+}

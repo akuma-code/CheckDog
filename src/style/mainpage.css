@@ -1,67 +1,41 @@
     .app_cont {
         display: flex;
         width: 1100px;
-        height: 600px;
+        height: fit-content;
         background-color: #88b684;
         flex-direction: column;
         justify-content: flex-start;
         flex-wrap: nowrap;
     }
     
-    .form_cont fieldset {
+    fieldset.form_field fieldset {
+        border: 2px solid chocolate;
+        height: max-content;
+        /* padding: 0 0; */
+    }
+    /* .form_cont_grid fieldset {
         display: flex;
         border-color: chocolate;
-        width: 100%;
+        width: 1050px;
+        height: 150px;
+        position: relative;
         flex-direction: row;
         justify-content: space-between;
         align-items: flex-start;
         flex-wrap: nowrap;
-    }
+    } */
     
-    fieldset.form_options {
+    .form_options {
         position: relative;
         display: flex;
-        min-inline-size: 40px;
         overflow: visible;
         z-index: 5;
         transition: all .3s ease-out;
         flex-flow: column;
-        height: max-content;
     }
     
     .maxdl {
-        background-color: #88b684;
-    }
-    
-    .form_options::before {
-        content: url('../assets/arrow_2.svg');
-        position: absolute;
-        width: 20px;
-        height: auto;
-        top: 40px;
-        margin-left: 5px;
-        transform: rotate(180deg);
-        transition: all .3s ease-in;
-    }
-    
-    .form_options::after {
-        transition: all .3s ease-in;
-        content: url('../assets/arrow_2.svg');
-        position: absolute;
-        width: 20px;
-        height: auto;
-        top: 45px;
-        margin-right: 15px;
-        right: 0;
-        transform: rotate(0deg);
-    }
-    
-    .form_options:hover:before {
-        transform: rotate(270deg);
-    }
-    
-    .form_options:hover::after {
-        transform: rotate(-90deg);
+        background-color: #9c0202;
     }
     
     .block_options {
@@ -101,27 +75,38 @@
         flex-wrap: nowrap;
         color: beige;
         padding: 0;
-        margin-top: 0;
+        margin-top: 4px;
+        margin-bottom: 0;
     }
     
     .form_options:hover .droplist:not(.color) {
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        align-content: center;
+        align-content: flex-start;
         justify-content: flex-start;
         align-items: flex-start;
         color: beige;
         gap: 5px;
         margin-block-start: 5px;
         padding-inline-start: 5px;
+        margin-bottom: 0;
     }
     
-    .droplist :is(li,
-    label) {
+    .droplist li {
+        width: 100%;
+        display: flex;
         appearance: none;
         cursor: pointer;
         list-style: none;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .droplist label {
+        cursor: pointer;
     }
     
     .form_cont {
@@ -137,8 +122,9 @@
         flex-wrap: wrap;
     }
     
-    .form_cont legend {
-        width: 100%;
+    legend[name=inputs] {
+        width: 900px;
+        height: 25px;
         display: flex;
         font-size: 1.15rem;
         color: #e2e2e2;
@@ -149,38 +135,36 @@
         flex-wrap: nowrap;
         justify-content: space-between;
         align-items: center;
+        background-color: rgb(54 54 54);
     }
     
-    .form_cont input {
+    .form_options>legend,
+    [data-form-inp]~legend {
+        color: beige;
+        border: 1px solid #d2691e;
+        width: 80%;
+        height: 1.1em;
         text-align: center;
     }
     
-    .form_cont legend[name=inputs] {
+    .form_cont_grid input[type=button] {
+        text-align: center;
+        height: 30px;
+    }
+    /* .form_cont_grid legend[name=inputs] {
         width: 80%;
         height: 1.6rem;
-    }
-    
-    [data-form-inp]~legend {
+    } */
+    /* [data-form-inp]~legend {
         color: #e2e2e2;
         border: 1px solid chocolate;
         background-color: transparent;
-    }
-    
-    .form_inp {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-content: center;
-        justify-content: space-evenly;
-        align-items: stretch;
-        width: 100%;
-        height: 60px;
-    }
+    } */
     
     .output {
         display: flex;
         width: 1090px;
-        height: 400px;
+        height: 750px;
         overflow-y: auto;
         overflow-x: hidden;
         border: 2px solid #000;
@@ -212,10 +196,6 @@
         justify-content: flex-start;
         gap: 15px;
         font-size: 15px;
-    }
-    
-    .block_control label {
-        cursor: url('../assets/arrow_2.svg'), pointer;
     }
     
     .block_control input[type='button']:is([disabled]) {
@@ -263,8 +243,8 @@
     
     .preview_field {
         display: flex;
-        width: 1100px;
-        border: 1px solid #000;
+        /* width: 1100px;
+        border: 1px solid #000; */
         height: auto;
         flex-wrap: wrap;
         flex-direction: row;
