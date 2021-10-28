@@ -65,7 +65,8 @@ class Block {
 class BlockDataBase {
     constructor() {
         this.pool = [];
-        this.pool.length = 0
+        this.pool.length = 0;
+        this.size = this.pool.length;
     }
 
     add(block) {
@@ -82,7 +83,8 @@ class BlockDataBase {
     get saveQuit() {
 
         this.pool.map((elem, index) => {
-            elem.data.bIndex = index
+            elem.data.bIndex = index;
+
         })
         localStorage.setItem('savedblocks', JSON.stringify(this.pool))
         this.pool.length = 0
@@ -144,12 +146,17 @@ class Outblock_data extends Block {
     toHTML() {
         return `<fieldset data-form-name='data'>
 <legend>
-<span data-block-data='name'>#${this.data.bIndex+1 || 'NEW'}) ${this.data.name ||''}</span>
-<span>ведет:</span>
-<span data-block-data='master'>${this.data.master || ''}</span></legend>
-<span data-block-data='id'>${this.data.id || ''}</span>
-<span data-block-data='summ'>${this.data.summ || ''}</span><span>руб.</span>
-<span data-block-data='date'>${this.data.date || ''}</span>
+<div class='block_data_line'>
+<span data-block-data='id' style="font-size: larger;color: firebrick;text-shadow: 1px 0px 2px #000;"> ${this.data.id || ''}</span><nobr>
+</div>
+</legend>
+<div class='block_data_list'>
+<div class='block_data_line'><span>Заказчик:</span><span data-block-data='name'> ${this.data.name ||''}</span></div>
+<div class='block_data_line'><span>Готовность:</span><span data-block-data='date'>${this.data.date || ''}</span></div>
+<div class='block_data_line'><span>Стоимость:</span><span data-block-data='summ'>${this.data.summ || ''} руб.</span></div>
+<div class='block_data_line'><span>Ведет:</span><span data-block-data='master' style="color:deepskyblue">${this.data.master || ''}</span></div>
+<div class='block_data_line'><span>Проверка:</span><span data-block-data='control' data-getvalue='control' style="color:red">${this.data.obs || ''}</span></div>
+</div>
 </fieldset> 
 `
     }
@@ -177,13 +184,16 @@ class Outblock_options extends Block {
 /**подБлок контроля */
 class Outblock_control {
     constructor(data) {
-        this.data = data
-        this.observer = getCorrectorUser(this.data.master) || ''
+        this.content = data
+        this.observer = getCorrectorUser(this.content.master) || ''
+
     }
 
     toHTML() {
-        const state = this.data.options.status
-        const obs = this.data.data.obs
+        const state = this.content.options.status
+        const obs = this.content.data.obs
+        const props = this.content.data.props || [];
+        const blockProps = props.map(item => `<span onclick="this.remove()">${item}</span>`)
         const {
             prov,
             correct,
@@ -195,7 +205,7 @@ class Outblock_control {
             disp = false,
             obs
         ) => `<fieldset>
-                <legend><span>Контроль:</span> <span data-getvalue="control">${obs}</span></legend>
+                <legend class="control_props">${blockProps.join('')}</legend>
                <form data-form-name='control'>
                  <label><input type='checkbox' name="prov" data-check='prov' ${(prov) ? 'checked' : ''}></input>проверка</label>
                  <label><input type='checkbox' name="correct" data-check='correct' ${(correct) ? 'checked' : ''}></input>корректировка</label>

@@ -42,14 +42,16 @@
                     </div>
                     <div class="ga_props">
                         <div>
-                            <label><input type="checkbox" name="plan" data-prop="plan">Схема</label>
+                            <label><input type="checkbox" name="plan" data-prop="plan">Схема монтажа</label>
                         </div>
                         <div><label><input type="checkbox" name="raznos" data-prop="raznos">Разнос</label>
                         </div>
                         <div><label><input type="checkbox" name="zhal" data-prop="zhal">Жалюзи</label>
                         </div>
+                        <div><label><input type="checkbox" name="draft" data-prop="draft">Эскизы н\щ</label>
+                        </div>
                     </div>
-                    <div class="ga_today">Сегодня:</div>
+
                     <div class="ga_options">
                         <fieldset class="form_options" data-get-input="options" data-restore="options">
                             <legend>Опции</legend>
@@ -80,9 +82,11 @@
                     </div>
                 </form>
 
-                <legend name="inputs"><span>ДОБАВЛЕНИЕ НОВОГО ДОГОВОРА </span>
+                <legend name="inputs">
+                    <div>Договоров в работе<span data-restore="size" id="psize"></span></div>
+                    <div id="today"></div>
                     <div>
-                        <span>Менеджер</span>
+                        <span>Менеджер </span>
                         <select name="master" data-get-input="master" data-restore="master" data-form-inp="master">
                             <option value="Паша" selected>Роднянский П. Л.</option>
                             <option value="Катя">Нестерова Е. И.</option>
@@ -97,8 +101,43 @@
     </div>
     <div class="preview_field" id="preview">
 
+
+        <div class="out_block elem_hide">
+            <div class="block_data">
+                <fieldset data-form-name="data">
+                    <legend>
+                        <span data-block-data="id"># 1) 21/10/05/04-21П </span>
+                        <span data-block-data="name">Соколов</span>
+                    </legend>
+                    <div>
+                        <span>Изготовление: </span><span data-block-data="date">21-10-2021</span><br>
+                        <span>Стоимость: </span><span data-block-data="summ">31600 </span><span>руб.</span><br>
+                        <span>Заключил: </span><span data-block-data="master">Паша</span><br>
+                        <span>Контроль: </span><span data-getvalue="control">Катя</span><br>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="block_options">
+                <div class="block_options__elem">белый</div>
+                <div class="block_options__elem">кристаллит</div>
+                <div class="block_options__elem">двери</div>
+                <div class="block_options__elem maxdl">закалка</div>
+            </div>
+            <div class="block_control">
+                <fieldset>
+                    <legend class="control_props"><span onclick="this.remove()">Схема монтажа </span><span>Разнос
+                        </span><span>Эскизы н\щ</span><span>Жалюзи</span></legend>
+                    <form data-form-name="control">
+                        <label><input type="checkbox" name="prov" data-check="prov" checked="">проверка</label>
+                        <label><input type="checkbox" name="correct" data-check="correct"
+                                checked="">корректировка</label>
+                        <label><input type="checkbox" name="disp" data-check="disp" checked="">диспетчерская</label>
+                        <input type="button" value="DONE!" disabled="">
+                    </form>
+                </fieldset>
+            </div>
+        </div>
     </div>
-    <div class="ls elem_hide " id="showLS "></div>
 </body>
 
 <script src="src/scriptsLoader.js "></script>

@@ -1,19 +1,23 @@
-    .app_cont {
-        display: flex;
-        width: 1100px;
-        height: fit-content;
-        background-color: #88b684;
-        flex-direction: column;
-        justify-content: flex-start;
-        flex-wrap: nowrap;
-    }
-    
-    fieldset.form_field fieldset {
-        border: 2px solid chocolate;
-        height: max-content;
-        /* padding: 0 0; */
-    }
-    /* .form_cont_grid fieldset {
+ .elem_hide {
+     display: none;
+ }
+ 
+ .app_cont {
+     display: flex;
+     width: 1100px;
+     height: fit-content;
+     background-color: #88b684;
+     flex-direction: column;
+     justify-content: flex-start;
+     flex-wrap: nowrap;
+ }
+ 
+ .form_field fieldset {
+     border: 2px solid chocolate;
+     height: max-content;
+     /* padding: 0 0; */
+ }
+ /* .form_cont_grid fieldset {
         display: flex;
         border-color: chocolate;
         width: 1050px;
@@ -24,230 +28,172 @@
         align-items: flex-start;
         flex-wrap: nowrap;
     } */
-    
-    .form_options {
-        position: relative;
-        display: flex;
-        overflow: visible;
-        z-index: 5;
-        transition: all .3s ease-out;
-        flex-flow: column;
-    }
-    
-    .maxdl {
-        background-color: #9c0202;
-    }
-    
-    .block_options {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-        max-width: 200px;
-        height: 80px;
-        gap: 5px;
-        justify-content: space-between;
-        align-content: center;
-    }
-    
-    .block_options__elem {
-        font-size: .9rem;
-        border: 1px inset rgb(187, 76, 56);
-        box-sizing: content-box;
-        padding: 0px 2px;
-        margin: 0px 1px;
-    }
-    
-    .form_options:hover {
-        background-color: rgb(54, 54, 54);
-        height: max-content;
-    }
-    
-    .droplist {
-        display: none;
-        appearance: none;
-    }
-    
-    ul.color {
-        display: flex;
-        height: min-content;
-        flex-flow: row;
-        flex-wrap: nowrap;
-        color: beige;
-        padding: 0;
-        margin-top: 4px;
-        margin-bottom: 0;
-    }
-    
-    .form_options:hover .droplist:not(.color) {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        align-content: flex-start;
-        justify-content: flex-start;
-        align-items: flex-start;
-        color: beige;
-        gap: 5px;
-        margin-block-start: 5px;
-        padding-inline-start: 5px;
-        margin-bottom: 0;
-    }
-    
-    .droplist li {
-        width: 100%;
-        display: flex;
-        appearance: none;
-        cursor: pointer;
-        list-style: none;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .droplist label {
-        cursor: pointer;
-    }
-    
-    .form_cont {
-        display: flex;
-        background-color: rgb(54, 54, 54);
-        width: 1100px;
-        height: 150px;
-        flex-direction: row;
-        justify-content: flex-start;
-        border: 2px solid #000;
-        /* margin-left: 10px; */
-        box-sizing: border-box;
-        flex-wrap: wrap;
-    }
-    
-    legend[name=inputs] {
-        width: 900px;
-        height: 25px;
-        display: flex;
-        font-size: 1.15rem;
-        color: #e2e2e2;
-        border: 1px solid #d2691e;
-        background-color: transparent;
-        flex-direction: row;
-        align-content: stretch;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        align-items: center;
-        background-color: rgb(54 54 54);
-    }
-    
-    .form_options>legend,
-    [data-form-inp]~legend {
-        color: beige;
-        border: 1px solid #d2691e;
-        width: 80%;
-        height: 1.1em;
-        text-align: center;
-    }
-    
-    .form_cont_grid input[type=button] {
-        text-align: center;
-        height: 30px;
-    }
-    /* .form_cont_grid legend[name=inputs] {
+ 
+ .form_options {
+     position: relative;
+     display: flex;
+     overflow: visible;
+     z-index: 5;
+     transition: all .3s ease-out;
+     flex-flow: column;
+ }
+ 
+ .form_options:hover {
+     background-color: rgb(54, 54, 54);
+     height: max-content;
+ }
+ 
+ .droplist {
+     display: none;
+     appearance: none;
+ }
+ 
+ ul.color {
+     display: flex;
+     height: min-content;
+     flex-flow: row;
+     flex-wrap: nowrap;
+     color: beige;
+     padding: 0;
+     margin-top: 4px;
+     margin-bottom: 0;
+ }
+ 
+ .form_options:hover .droplist:not(.color) {
+     display: flex;
+     flex-direction: column;
+     flex-wrap: wrap;
+     align-content: flex-start;
+     justify-content: flex-start;
+     align-items: flex-start;
+     color: beige;
+     gap: 5px;
+     margin-block-start: 5px;
+     padding-inline-start: 5px;
+     margin-bottom: 0;
+ }
+ 
+ .droplist li {
+     width: 100%;
+     display: flex;
+     appearance: none;
+     cursor: pointer;
+     list-style: none;
+     flex-direction: row;
+     flex-wrap: nowrap;
+     justify-content: space-between;
+     align-items: center;
+ }
+ 
+ .droplist label,
+ .form_field label {
+     cursor: pointer;
+     user-select: none;
+ }
+ 
+ .form_cont {
+     display: flex;
+     background-color: rgb(54, 54, 54);
+     width: 1100px;
+     height: 150px;
+     flex-direction: row;
+     justify-content: flex-start;
+     border: 2px solid #000;
+     box-sizing: border-box;
+     flex-wrap: wrap;
+ }
+ 
+ legend[name=inputs] {
+     width: 890px;
+     height: 30px;
+     display: flex;
+     font-size: 1.15rem;
+     color: #e2e2e2;
+     border: 1px solid #d2691e;
+     background-color: transparent;
+     flex-direction: row;
+     align-content: stretch;
+     flex-wrap: nowrap;
+     justify-content: space-evenly;
+     align-items: center;
+     background-color: rgb(54 54 54);
+     margin-left: 32px;
+ }
+ 
+ legend[name=inputs]>div:nth-child(1) {
+     border-right: 2px solid #ff9800;
+     padding-right: 1.15rem;
+     font-size: 1.3em;
+ }
+ 
+ legend[name=inputs]>div:nth-child(2) {
+     font-size: 1.4em;
+     font-weight: bold;
+     text-shadow: 2px 0px 4px #ff9800;
+     border-right: 2px solid #ff9800;
+     padding-left: 5px;
+     padding-right: 5px;
+ }
+ 
+ .form_options>legend,
+ [data-form-inp]~legend {
+     color: beige;
+     border: 1px solid #d2691e;
+     width: 80%;
+     height: 1.1em;
+     text-align: center;
+ }
+ 
+ .form_cont_grid input[type=button] {
+     text-align: center;
+     height: 30px;
+ }
+ /* .form_cont_grid legend[name=inputs] {
         width: 80%;
         height: 1.6rem;
     } */
-    /* [data-form-inp]~legend {
+ /* [data-form-inp]~legend {
         color: #e2e2e2;
         border: 1px solid chocolate;
         background-color: transparent;
     } */
-    
-    .output {
-        display: flex;
-        width: 1090px;
-        height: 750px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        border: 2px solid #000;
-        background-color: transparent;
-        margin-top: 10px;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        align-content: stretch;
-        justify-content: flex-start;
-        align-items: center;
-    }
-    
-    .out_block {
-        display: flex;
-        width: 100%;
-        height: 80px;
-        background: rgb(54, 54, 54);
-        color: beige;
-        flex-direction: row;
-        margin: 2px;
-        justify-content: space-between;
-    }
-    
-    .block_data {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 15px;
-        font-size: 15px;
-    }
-    
-    .block_control input[type='button']:is([disabled]) {
-        margin-left: 20px;
-    }
-    
-    .block_control input[type='button']:not([disabled]) {
-        margin-left: 20px;
-        cursor: pointer;
-    }
-    
-    input[name=summ] {
-        width: 80px;
-        font-weight: 800;
-    }
-    
-    .form_cont .form_summ {
-        width: 85px;
-        min-inline-size: 85px;
-    }
-    
-    .ls {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        display: flex;
-        border: 1px solid #000;
-        width: 400px;
-        height: fit-content;
-        flex-direction: column;
-        flex-wrap: nowrap;
-    }
-    
-    .ls>ul {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        align-items: flex-start;
-        align-content: flex-start;
-    }
-    
-    .elem_hide {
-        display: none;
-    }
-    
-    .preview_field {
-        display: flex;
-        /* width: 1100px;
-        border: 1px solid #000; */
-        height: auto;
-        flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-    }
+ 
+ input[name=summ] {
+     width: 80px;
+     font-weight: 800;
+ }
+ 
+ .form_cont .form_summ {
+     width: 85px;
+     min-inline-size: 85px;
+ }
+ 
+ .ls {
+     position: absolute;
+     bottom: 0;
+     left: 0;
+     display: flex;
+     border: 1px solid #000;
+     width: 400px;
+     height: fit-content;
+     flex-direction: column;
+     flex-wrap: nowrap;
+ }
+ 
+ .ls>ul {
+     display: flex;
+     flex-direction: column;
+     flex-wrap: nowrap;
+     align-items: flex-start;
+     align-content: flex-start;
+ }
+ 
+ .preview_field {
+     display: none;
+     width: 1100px;
+     height: auto;
+     flex-wrap: wrap;
+     flex-direction: row;
+     justify-content: space-around;
+     align-items: center;
+ }

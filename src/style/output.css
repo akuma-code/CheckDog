@@ -1,0 +1,133 @@
+.output {
+    display: flex;
+    width: 1096px;
+    height: 550px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 2px solid #000;
+    background-color: transparent;
+    margin-top: 10px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.out_block {
+    display: flex;
+    width: 100%;
+    height: 80px;
+    background: rgb(54, 54, 54);
+    color: beige;
+    flex-direction: row;
+    margin: 2px;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-top: 10px;
+}
+
+.out_block:hover {
+    outline: 3px solid #e25d10;
+}
+
+.preview_field .out_block {
+    width: 1196px;
+}
+
+[data-form-name="data"] {
+    height: 60px;
+    overflow: hidden;
+    transition: background .12s ease-in-out;
+}
+
+[data-form-name="data"]>legend {
+    transition: all .2s ease-in;
+}
+
+.block_data:hover [data-form-name="data"],
+.block_data:hover [data-form-name="data"]>legend {
+    height: fit-content;
+    background: rgb(87, 87, 87);
+    z-index: 5;
+}
+
+.out_block label {
+    cursor: pointer;
+    user-select: none;
+}
+
+.block_data {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 15px;
+    font-size: 20px;
+    width: fit-content;
+}
+
+
+/* .block_data_list {
+    display: block;
+    text-align: center;
+} */
+
+span[data-block-data="name"] {
+    /* padding-left: 15px; */
+    white-space: pre;
+    margin-left: 1rem;
+    color: #ffba5f;
+}
+
+.block_data_list span[data-block-data] {
+    /* padding-left: 30px; */
+    color: #ffba5f;
+}
+
+.block_data_line {
+    display: flex;
+    justify-content: space-between;
+}
+
+.block_control input[type='button']:is([disabled]) {
+    margin-left: 20px;
+}
+
+.block_control input[type='button']:not([disabled]) {
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.control_props span {
+    background: #4e2809;
+    border: 1px solid #fff;
+    margin: 4px;
+    padding: 3px 5px;
+    cursor: not-allowed;
+}
+
+.maxdl {
+    background-color: #9c0202;
+}
+
+.block_options {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    max-width: 200px;
+    height: 80px;
+    gap: 5px;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.block_options__elem {
+    font-size: .9rem;
+    border: 1px inset rgb(187, 76, 56);
+    box-sizing: content-box;
+    padding: 0px 2px;
+    margin: 0px 1px;
+}

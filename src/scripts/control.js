@@ -10,7 +10,7 @@ $ADDbtn.addEventListener('click', () => {
 
     localStorage.setItem('lastInputs', JSON.stringify(newValues))
     document.querySelector('#out').insertAdjacentElement("beforeend", newBlock(newValues))
-
+    document.querySelector('#psize').innerHTML = `: ${bdb.pool.length}`
 });
 
 
@@ -37,8 +37,11 @@ window.addEventListener('beforeunload', () => {
 });
 
 window.addEventListener('load', () => {
-    restoreForm()
+    restoreForm();
     bdb.loadPool();
+    document.querySelector('#psize').innerHTML = `: ${bdb.pool.length}`
+    document.querySelector('#today').insertAdjacentText('afterbegin', `${getToday()}`);
+    document.querySelector('#today').insertAdjacentText('beforebegin', `СЕГОДНЯ:`);
     console.log('dogs in da house:', bdb.pool.length);
 
 })

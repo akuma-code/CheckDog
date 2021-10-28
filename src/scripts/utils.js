@@ -1,4 +1,5 @@
-const dateReverse = (value) => Array.from(value).join('').split('-').reverse().join('-');
+const dateReverse = (value) => Array.from(value).join('').split('-').reverse().join('.');
+const dateBackReverse = (value) => Array.from(value).join('').split('.').reverse().join('-');
 
 function getDeadline(options = []) {
     const deadline = {
@@ -41,7 +42,8 @@ class UIVals {
             checkedID: {},
             props: [],
             obs: '',
-            id: ''
+            id: '',
+            size: 0
         };
         const options = {
             checked: [],
@@ -88,7 +90,7 @@ class UIVals {
     }
 }
 
-const _data = new UIVals().update
+const _data = new UIVals()
 
 function table(args) {
     return console.table.call(this, args)
@@ -120,7 +122,7 @@ function restoreForm() {
     const restoreElems = Array.from(document.querySelectorAll('[data-restore]'));
     restoreElems.map(element => {
         const key = element.dataset.restore;
-        if (key === 'date') element.value = dateReverse(data[key])
+        if (key === 'date') element.value = dateBackReverse(data[key])
         else element.value = data[key]
     })
 }
@@ -141,7 +143,19 @@ function isDone(element) {
     }
 }
 
+function getToday() {
+    const date = new Date();
 
+    let day = date.getDate();
+    if (day.toString().length === 1) day = '0' + date.getDate()
+    let month = date.getMonth();
+
+    if (month.toString().length === 1) month = '0' + date.getMonth()
+    let year = date.getFullYear();
+
+    const today = `${day}.${+month+1}.${year}`;
+    return today
+}
 
 function spylog(args) {
     return console.log.call(this, args)
