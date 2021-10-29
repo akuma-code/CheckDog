@@ -1,24 +1,25 @@
 const dateReverse = (value) => Array.from(value).join('').split('-').reverse().join('.');
 const dateBackReverse = (value) => Array.from(value).join('').split('.').reverse().join('-');
+const optionsTimings = {
+    'белый': 8,
+    "цветной": 14,
+    "спектраль": 21,
+    "кристаллит": 14,
+    "арки": 18,
+    "закалка": 30,
+    "двери": 12,
+    "переплет": 14,
+}
 
 function getDeadline(options = []) {
-    const deadline = {
-        'белый': 8,
-        "цветной": 14,
-        "спектраль": 21,
-        "кристаллит": 14,
-        "арки": 18,
-        "закалка": 30,
-        "двери": 12,
-        "переплет": 14,
-    }
+
     const getMax = (array) => array.sort(((a, b) => b - a))[0]
     const test = ['цветной', "арки", "закалка"]
 
     function sortOPT(arr = []) {
         const result = [];
         arr.map(item => {
-            const time = deadline[item];
+            const time = optionsTimings[item];
             const name = item;
             result.push({
                 name,
@@ -29,6 +30,33 @@ function getDeadline(options = []) {
     }
     // spylog(sortOPT(test)[0].name)
     return sortOPT(options)
+}
+
+function getDeadLineDate(readydate = String, maxTime = Number) {
+    const parsedtime = (date) => Array.from(date).join('').split('.').reverse();
+    const [year, months, day] = parsedtime(readydate);
+    const deadline = [+year, +months - 1, +day - maxTime];
+    const dl = new Date(...deadline);
+    const DYear = dl.getFullYear();
+    const DMonth = dl.getMonth() + 1;
+    const Dday = dl.getDate();
+    return `${Dday}.${DMonth}.${DYear}`
+}
+
+function warningDeadline(block = UIVals) {
+    const readyDate = block.data.date;
+    const dl = dateBackReverse(block.data.deadlineDate);
+    const today = dateBackReverse(getToday());
+    const compare = (now, time) => {
+        const datenow = new Date(Date.parse(now));
+        const datetime = new Date(Date.parse(time));
+        spylog(`now>time: ${datenow>datetime}`)
+            // spylog(`now<=time: ${datenow<=datetime}`)
+            // spylog(`now===time: ${datenow==datetime}`)
+        return now > time
+    }
+    spylog({ today, dl })
+    return compare(today, dl)
 }
 class UIVals {
     constructor() {
@@ -43,7 +71,8 @@ class UIVals {
             props: [],
             obs: '',
             id: '',
-            size: 0
+            date: '',
+            deadlineDate: ''
         };
         const options = {
             checked: [],
@@ -60,7 +89,9 @@ class UIVals {
             if (elem.type == 'text') {
                 form[input] = elem.value
             };
-            if (elem.type == 'date') form[input] = dateReverse(elem.value);
+            if (elem.type == 'date') {
+                form[input] = dateReverse(elem.value);
+            };
             if (elem.name === 'master') {
                 form[input] = elem.value;
                 form.obs = getCorrectorUser(elem.value)

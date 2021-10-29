@@ -147,7 +147,7 @@ class Outblock_data extends Block {
         return `<fieldset data-form-name='data'>
 <legend>
 <div class='block_data_line'>
-<span data-block-data='id' style="font-size: larger;color: firebrick;text-shadow: 1px 0px 2px #000;"> ${this.data.id || ''}</span><nobr>
+<span data-block-data='id' style="font-size: larger;text-shadow: 1px 1px 1px #999;"> ${this.data.id || ''}</span><nobr>
 </div>
 </legend>
 <div class='block_data_list'>
@@ -173,6 +173,8 @@ class Outblock_options extends Block {
         let list = '';
         const times = getDeadline(this.options.checked)
         const max = times[0].name
+        const maxDate = times[0].time;
+        this.data.deadlineDate = getDeadLineDate(this.data.date, maxDate)
         this.options.checked.map(elem => {
             if (elem === max) list += `<div class='block_options__elem maxdl'>${elem}</div>`
             else list += `<div class='block_options__elem'>${elem}</div>`
@@ -244,6 +246,8 @@ class OutBlockBuilder {
         const status = block.options.status || {};
 
         OutBlockDiv.classList.add('out_block');
+        if (warningDeadline(block)) OutBlockDiv.classList.add('deadline');
+
         OutBlockDiv.oncontextmenu = (event) => {
             if (event.altKey) OutBlockDiv.remove()
             if (event.ctrlKey) {
