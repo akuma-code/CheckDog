@@ -31,8 +31,16 @@
     background-color: #9c0202;
 }
 
+.out_block.deadline .maxdl {
+    background-color: rgb(194, 194, 194);
+    color: #000;
+    font-size: 1.3rem;
+    border: 2px inset #000;
+}
+
 .out_block:hover {
     outline: 3px solid #e25d10;
+    z-index: 60;
 }
 
 .preview_field .out_block {
@@ -115,7 +123,8 @@ span[data-block-data="name"] {
 }
 
 .maxdl {
-    background-color: #9c0202;
+    background-color: rgb(194, 194, 194);
+    color: #000;
 }
 
 .block_options {
