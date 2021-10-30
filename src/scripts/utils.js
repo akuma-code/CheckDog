@@ -48,14 +48,14 @@ function warningDeadline(block = UIVals) {
     const dl = dateBackReverse(block.data.deadlineDate);
     const today = dateBackReverse(getToday());
     const compare = (now, time) => {
-        const datenow = new Date(Date.parse(now));
-        const datetime = new Date(Date.parse(time));
-        spylog(`now>time: ${datenow>datetime}`)
+            const datenow = new Date(Date.parse(now));
+            const datetime = new Date(Date.parse(time));
+            // spylog(`now>time: ${datenow>datetime}`)
             // spylog(`now<=time: ${datenow<=datetime}`)
             // spylog(`now===time: ${datenow==datetime}`)
-        return now > time
-    }
-    spylog({ today, dl })
+            return now > time
+        }
+        // spylog({ today, dl })
     return compare(today, dl)
 }
 class UIVals {

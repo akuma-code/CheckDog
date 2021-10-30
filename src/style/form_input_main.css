@@ -22,6 +22,16 @@
     margin-top: 5px;
 }
 
+.form_field input[type=text] {
+    text-align: center;
+    font-weight: 200;
+    background-color: beige;
+}
+
+.form_field input[type=text]:focus {
+    font-weight: 600;
+}
+
 .ga_client {
     grid-area: client
 }

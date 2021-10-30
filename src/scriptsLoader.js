@@ -6,6 +6,10 @@ const scripts = [{
         src: './src/scripts/utils.js'
     },
     {
+        id: 'handlers',
+        src: './src/scripts/handlers.js'
+    },
+    {
         id: 'blocks',
         src: './src/scripts/blocks.js'
     },
